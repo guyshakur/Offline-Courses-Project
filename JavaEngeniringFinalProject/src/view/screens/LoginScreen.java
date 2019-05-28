@@ -33,6 +33,9 @@ import model.dao.StudentDao;
 import model.daoImpl.StudentDaoImplForSqlite;
 import view.utilities.HintPasswordField;
 import view.utilities.HintTextField;
+import view.utilities.RoundedBorder;
+import view.utilities.RoundedCorners;
+import view.utilities.rounded;
 
 public class LoginScreen extends JFrame  {
 	
@@ -98,6 +101,7 @@ public class LoginScreen extends JFrame  {
 		buttonLogin = new JButton("Login");
 		buttonLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		buttonLogin.setPreferredSize(new Dimension(150, 30));
+		buttonLogin.setBorder(new RoundedBorder());
 		buttonLogin.setMaximumSize(new Dimension(150, 30));
 
 

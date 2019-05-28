@@ -112,7 +112,40 @@ public class StudentDaoImplForSqlite implements StudentDao {
 			}
 		}
 	}
-	
-	
+
+	@Override
+	public Student getStudent(String userName) throws Exception {
+		Student student =null;
+		ResultSet resultSet=null;
+		try {
+			String sql="SELECT user_name,first_name,last_name,password FROM students WHERE user_name=?";
+			statment = connection.prepareStatement(sql);
+			statment.setString(1, userName);
+			resultSet=statment.executeQuery();
+
+			if(resultSet.next()) {
+				student=new Student();
+				student.setUserName(resultSet.getString("user_name"));
+				student.setFirstName(resultSet.getString("first_name"));
+				student.setLastName(resultSet.getString("last_name"));
+				student.setPassword(resultSet.getString("password"));
+			}
+
+			return student;
+
+		} catch (Exception e) {
+			throw new Exception("Failed to get user from db. "+e.getMessage());
+		}
+		finally {
+			if(resultSet!=null) {
+				resultSet.close();
+			}
+			if(statment!=null) {
+				statment.close();
+			}
+		}
+	}
+
+
 
 }

@@ -48,6 +48,12 @@ public class StudentDaoImplMock implements StudentDao {
 		
 		return students.get(userName).getPassword().equals(password);
 	}
+
+	@Override
+	public Student getStudent(String userName) throws Exception {
+		// TODO Auto-generated method stub
+		return students.get(userName);
+	}
 	
 	
 	

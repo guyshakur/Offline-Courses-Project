@@ -5,7 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import model.Session;
 import model.dao.StudentDao;
+import model.transferObjects.Student;
 import view.screens.LoginScreen;
 import view.screens.TestScreen;
 
@@ -73,10 +75,15 @@ public class LoginController implements Controller {
 	public void login(String userName,String password) {
 		try {
 			if(studentDao.login(userName, password)) {
+				Student currentUser=new Student();
+				currentUser.setUserName(userName);
+				Session.getInstance().setCurrentUser(currentUser);
 				loginScreen	.close();
 				Controller controller=
 						NavigationFactory.create("After Successfull Login");
+				controller.setStudentDao(studentDao);
 				controller.start();
+				
 			}
 			else {
 				

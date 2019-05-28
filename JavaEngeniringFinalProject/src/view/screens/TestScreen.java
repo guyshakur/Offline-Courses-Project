@@ -11,13 +11,11 @@ import controller.TestController;
 import model.dao.StudentDao;
 
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
 
 public class TestScreen extends JFrame {
-
-	private JPanel contentPane;
 	private TestController testController=null;
-	private JLabel lblNewLabel;
-	
+	private JLabel lblFirstName;
 
 	public TestController getTestController() {
 		return testController;
@@ -27,8 +25,9 @@ public class TestScreen extends JFrame {
 		this.testController = testController;
 	}
 	
-	public static String displayName(String username) {
-		return username;
+	public void displayName(String firstName) {
+		
+		lblFirstName.setText(firstName);
 
 	}
 	
@@ -40,13 +39,10 @@ public class TestScreen extends JFrame {
 	public TestScreen() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		getContentPane().setLayout(null);
 		
-		lblNewLabel = new JLabel();
-		contentPane.add(lblNewLabel, BorderLayout.CENTER);
+		lblFirstName = new JLabel("New label");
+		lblFirstName.setBounds(117, 101, 175, 62);
+		getContentPane().add(lblFirstName);
 	}
-
 }

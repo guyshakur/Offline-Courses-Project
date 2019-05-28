@@ -5,7 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import model.Session;
 import model.dao.StudentDao;
+import model.transferObjects.Student;
 import view.screens.LoginScreen;
 import view.screens.TestScreen;
 
@@ -52,6 +54,8 @@ public class TestController implements Controller {
 			public void run() {
 				try {
 					testScreen.setTestController(thisObj);
+					Student student=studentDao.getStudent(Session.getInstance().getCurrentUser().getUserName());
+					testScreen.displayName(student.getFirstName());
 					TestController.testScreen.setVisible(true);
 	
 				} catch (Exception e) {
