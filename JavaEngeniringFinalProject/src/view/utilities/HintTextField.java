@@ -1,118 +1,65 @@
 package view.utilities;
-import java.awt.Color;  
-import java.awt.Font;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.FocusAdapter;  
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.RenderingHints;
 
-import javax.swing.JTextField;  
+import javax.swing.JTextField;
 
-public class HintTextField extends JTextField {  
+public class HintTextField extends JTextField {
 
-	Font gainFont = new Font("Tahoma", Font.PLAIN, 11);  
-	Font lostFont = new Font("Tahoma", Font.ITALIC, 11);
+	private String ph;
+
+	public HintTextField(String ph) {
+		this.ph = ph;
+	}
 	
-	 @Override
-	 protected void paintComponent(Graphics g) {
-		    if (!isOpaque() && getBorder() instanceof RoundedBorder) {
+	public HintTextField() {
+		this.ph = null;
+	}
+
+	/**
+	 * Gets text, returns placeholder if nothing specified
+	 */
+	@Override
+	public String getText() {
+		String text = super.getText();
+
+		if (text.trim().length() == 0 && ph != null) {
+			text = ph;
+		}
+
+		return text;
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		  if (!isOpaque() && getBorder() instanceof RoundedBorder) {
 		      Graphics2D g2 = (Graphics2D) g.create();
 		      g2.setPaint(getBackground());
 		      g2.fill(((RoundedBorder) getBorder()).getBorderShape(
 		          0, 0, getWidth() - 1, getHeight() - 1));
 		      g2.dispose();
 		    }
-		    super.paintComponent(g);
-		  }
-		  @Override public void updateUI() {
+		super.paintComponent(g);
+		
+		
+
+		if (super.getText().length() > 0 || ph == null) {
+			return;
+		}
+		
+		Graphics2D g2 = (Graphics2D) g;
+
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setColor(super.getDisabledTextColor());
+		g2.drawString(ph, getInsets().left, g.getFontMetrics().getMaxAscent() + getInsets().top);
+	}
+	
+	 @Override public void updateUI() {
 		    super.updateUI();
 		    setOpaque(false);
 		    setBorder(new RoundedBorder());
 		  };
 
-		
-		
-			
-	public HintTextField(final String hint) {  
-
-		setText(hint);  
-		setFont(lostFont);  
-		setForeground(Color.GRAY);  
-		
-
-		this.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				if (getText().equals(hint)) {  
-					setText("");
-					setFont(gainFont);
-					setForeground(Color.black);
-
-				}
-
-				else if(getText().trim().length()==0) {
-					setText(hint);
-					setFont(gainFont);
-					setForeground(Color.gray);
-					setCaretPosition(0);
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		this.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if(getText().equals(hint)){
-					setCaretPosition(0);
-				}
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		
-
-	}  
-}  
-
-
+}

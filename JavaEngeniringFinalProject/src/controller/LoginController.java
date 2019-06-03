@@ -9,11 +9,13 @@ import model.Session;
 import model.dao.StudentDao;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
+import view.screens.SignUpScreen;
 import view.screens.TestScreen;
 
 public class LoginController implements Controller {
 	private static LoginController thisObj=null;
 	private static LoginScreen loginScreen=null;
+	private static SignUpScreen signUpScreen=null;
 	private TestScreen testScreen=null;
 	private StudentDao studentDao=null;
 	
@@ -72,6 +74,23 @@ public class LoginController implements Controller {
 		
 	}
 
+	public void StartSignInScreen() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				Controller controller=
+						NavigationFactory.create("Login");
+				controller.start();
+				signUpScreen.setLoginController(thisObj);
+				 signUpScreen.setVisible(true); 
+			
+			}
+	});
+	
+	}
+	
+	
+
+		
 	public void login(String userName,String password) {
 		try {
 			if(studentDao.login(userName, password)) {
@@ -92,6 +111,16 @@ public class LoginController implements Controller {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+
+	public static SignUpScreen getSignUpScreen() {
+		return signUpScreen;
+	}
+
+
+	public static void setSignUpScreen(SignUpScreen signUpScreen) {
+		LoginController.signUpScreen = signUpScreen;
 	}
 	
 	

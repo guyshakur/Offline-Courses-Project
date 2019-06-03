@@ -12,6 +12,7 @@ import model.daoImpl.StudentDaoImplForSqlite;
 import model.daoImpl.StudentDaoImplMock;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
+import view.screens.SignUpScreen;
 import view.screens.TestScreen;
 
 public class Main {
@@ -56,8 +57,10 @@ public class Main {
 			LoginController loginController=new LoginController();
 			loginController.setStudentDao(studentDao);
 			LoginScreen loginScreen =new LoginScreen();
+			SignUpScreen signUpScreen=new SignUpScreen();
 			TestScreen testScreen=new TestScreen();
 			loginController.setLoginScreen(loginScreen);
+			loginController.setSignUpScreen(signUpScreen);
 			TestController testController=new TestController();
 			testController.setTestScreen(testScreen);
 			loginController.start();

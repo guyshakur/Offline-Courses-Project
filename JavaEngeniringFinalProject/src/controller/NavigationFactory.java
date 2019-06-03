@@ -13,6 +13,9 @@ public  class NavigationFactory {
 			
 			case "After Successfull Login":
 				return new TestController();
+			
+			case "Sign Up":
+				return new SignUpController();
 				
 			default :
 				return null;

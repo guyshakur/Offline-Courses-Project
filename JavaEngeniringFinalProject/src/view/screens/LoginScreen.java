@@ -10,6 +10,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -29,9 +32,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.LoginController;
+import controller.SignUpController;
 import model.dao.StudentDao;
 import model.daoImpl.StudentDaoImplForSqlite;
 import view.utilities.HintPasswordField;
+import view.utilities.HintPasswordField;
+import view.utilities.HintTextField;
 import view.utilities.HintTextField;
 import view.utilities.RoundedBorder;
 import view.utilities.RoundedCorners;
@@ -40,6 +46,7 @@ import view.utilities.rounded;
 public class LoginScreen extends JFrame  {
 	
 	LoginController loginController=null;
+	SignUpController signUpController=null;
 	
 	Font textBoxFont = new Font("Tahoma", Font.PLAIN, 22); 
 	Color c=new Color(171,240,250);
@@ -73,7 +80,7 @@ public class LoginScreen extends JFrame  {
 		panelImage.setBackground(c);
 
 		//JTextusername
-		hintTextUserName=new HintTextField("user Name");
+		hintTextUserName=new HintTextField("user name");
 		hintTextUserName.setPreferredSize(new Dimension(600, 40));
 		hintTextUserName.setMaximumSize(new Dimension(600, 40));
 		hintTextUserName.setFont(textBoxFont);
@@ -157,7 +164,42 @@ public class LoginScreen extends JFrame  {
 		getContentPane().add(panelMain);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
+		labelSignUp.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+				loginController.StartSignInScreen();
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+		});
+			
+		
 		buttonLogin.addActionListener(new ActionListener() {
 
 
@@ -176,7 +218,6 @@ public class LoginScreen extends JFrame  {
 		setTitle("Please Login Here !");
 		setSize(500,600);
 		setResizable(false);
-		//setVisible(true);
 
 	}
 
@@ -191,6 +232,8 @@ public class LoginScreen extends JFrame  {
 	public void setLoginController(LoginController loginController) {
 		this.loginController = loginController;
 	}
+	
+	
 
 
 
@@ -203,6 +246,19 @@ public class LoginScreen extends JFrame  {
 		this.dispose();
 	}
 
+
+
+	public SignUpController getSignUpController() {
+		return signUpController;
+	}
+
+
+
+	public void setSignUpController(SignUpController signUpController) {
+		this.signUpController = signUpController;
+	}
+
+	
 	
 
 }
