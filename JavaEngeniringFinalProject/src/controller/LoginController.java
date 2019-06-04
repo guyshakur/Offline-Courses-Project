@@ -2,28 +2,31 @@ package controller;
 
 import java.awt.EventQueue;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 
 import model.Session;
 import model.dao.StudentDao;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
-import view.screens.SignUpScreen;
+import view.screens.SignUpDialog;
 import view.screens.TestScreen;
 
 public class LoginController implements Controller {
 	private static LoginController thisObj=null;
 	private static LoginScreen loginScreen=null;
-	private static SignUpScreen signUpScreen=null;
+	//private static SignUpScreen signUpScreen=null;
+	private static SignUpDialog signUpDialog=null;
 	private TestScreen testScreen=null;
 	private StudentDao studentDao=null;
-	
+
 	public LoginController() {
 		thisObj=this;
 	}
-	
-	
+
+
 	public LoginScreen getLoginScreen() {
 		return loginScreen;
 	}
@@ -65,32 +68,35 @@ public class LoginController implements Controller {
 				try {
 					loginScreen.setLoginController(thisObj);
 					LoginController.loginScreen.setVisible(true);
-	
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		
+
 	}
 
-	public void StartSignInScreen() {
+	public void startSignUpDialog() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				Controller controller=
 						NavigationFactory.create("Login");
-				controller.start();
-				signUpScreen.setLoginController(thisObj);
-				 signUpScreen.setVisible(true); 
-			
-			}
-	});
-	
-	}
-	
-	
+				signUpDialog.setLoginController(thisObj);	
+				signUpDialog.setLocationRelativeTo(loginScreen);
+				setEnable();
+				signUpDialog.setVisible(true); 
 
-		
+
+
+			}
+		});
+
+	}
+
+
+
+
 	public void login(String userName,String password) {
 		try {
 			if(studentDao.login(userName, password)) {
@@ -102,10 +108,10 @@ public class LoginController implements Controller {
 						NavigationFactory.create("After Successfull Login");
 				controller.setStudentDao(studentDao);
 				controller.start();
-				
+
 			}
 			else {
-				
+
 				loginScreen.displayStatus("invalid username or password");
 			}
 		} catch (Exception e) {
@@ -114,14 +120,21 @@ public class LoginController implements Controller {
 	}
 
 
-	public static SignUpScreen getSignUpScreen() {
-		return signUpScreen;
+	public  SignUpDialog getSignUpScreen() {
+		return signUpDialog;
 	}
 
 
-	public static void setSignUpScreen(SignUpScreen signUpScreen) {
-		LoginController.signUpScreen = signUpScreen;
+	public  void setSignUpDialog(SignUpDialog signUpDialog) {
+		LoginController.signUpDialog = signUpDialog;
 	}
-	
-	
+
+	public void setEnable() {
+
+		if (loginScreen.isEnabled()) {
+			loginScreen.setEnabled(false);
+		}
+		else
+			loginScreen.setEnabled(true);
+	}
 }

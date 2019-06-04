@@ -46,7 +46,6 @@ import view.utilities.rounded;
 public class LoginScreen extends JFrame  {
 	
 	LoginController loginController=null;
-	SignUpController signUpController=null;
 	
 	Font textBoxFont = new Font("Tahoma", Font.PLAIN, 22); 
 	Color c=new Color(171,240,250);
@@ -175,7 +174,8 @@ public class LoginScreen extends JFrame  {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				
-				loginController.StartSignInScreen();
+				
+				loginController.startSignUpDialog();
 				
 			}
 			
@@ -248,15 +248,15 @@ public class LoginScreen extends JFrame  {
 
 
 
-	public SignUpController getSignUpController() {
-		return signUpController;
-	}
-
-
-
-	public void setSignUpController(SignUpController signUpController) {
-		this.signUpController = signUpController;
-	}
+//	public SignUpController getSignUpController() {
+//		return signUpController;
+//	}
+//
+//
+//
+//	public void setSignUpController(SignUpController signUpController) {
+//		this.signUpController = signUpController;
+//	}
 
 	
 	

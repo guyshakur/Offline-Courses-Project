@@ -2,39 +2,34 @@ package view.screens;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Image;
+import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
 import controller.SignUpController;
-import view.utilities.GenericRoundedButton;
 import view.utilities.HintPasswordField;
 import view.utilities.HintTextField;
 import view.utilities.RoundBorder;
-import view.utilities.RoundBorder2;
-import view.utilities.RoundButton;
-import view.utilities.RoundCornerButton;
-import view.utilities.RoundedBorder;
 
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.JSeparator;
-import java.awt.Label;
-import javax.swing.JInternalFrame;
-import javax.swing.JSplitPane;
+public class SignUpDialog extends JDialog {
 
-public class SignUpScreen extends JFrame {
+
+
 	SignUpController signUpController=null;
 	LoginController loginController=null;
 	private HintTextField hintTextfirstName ;
@@ -49,14 +44,9 @@ public class SignUpScreen extends JFrame {
 	private JLabel lblSignUp;
 
 
+	public SignUpDialog(Frame owner) {
 
-	/**
-	 * Create the frame.
-	 */
-	public SignUpScreen() {
-
-
-
+		setModalityType(ModalityType.APPLICATION_MODAL);
 
 		//lableImage
 		labelImage=new JLabel();
@@ -71,38 +61,37 @@ public class SignUpScreen extends JFrame {
 		panelImage.setBackground(c);
 		panelImage.add(labelImage);
 		panelImage.setBounds(77, 0, 219, 145);
-		
+
 		//lblSignUp
 		lblSignUp = new JLabel("Sign Up");
 		lblSignUp.setBounds(166, 149, 46, 14);
 
 
 
-        //hintTextFirstName
+		//hintTextFirstName
 		hintTextfirstName = new HintTextField("First Name");
 		hintTextfirstName.setBounds(136, 171, 112, 20);
-		
+
 		//hintTextLastName
 		hintLasttName = new HintTextField("Last Name");
 		hintLasttName.setBounds(136, 202, 112, 20);
-		
+
 		//hintTextUserName
 		hintuserName=new HintTextField("User Name");
 		hintuserName.setBounds(136, 233, 112, 20);
-		
+
 		//HintPasswordField
 		hintPasswordField=new HintPasswordField("Password");
 		hintPasswordField.setBounds(136, 264, 112, 20);
-		
+
 		//btnSend
 		btnSend = new JButton("Send");
 		btnSend.setBounds(146, 297, 89, 23);
-		
+		btnSend.setBorder(new RoundBorder());
+
 		//lblStatus
 		lblStatus = new JLabel("");
 		lblStatus.setBounds(166, 331, 46, 14);
-		
-		
 
 
 
@@ -110,7 +99,9 @@ public class SignUpScreen extends JFrame {
 
 
 
-        //JFrame
+
+
+		//JDialog
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(c);
 		getContentPane().add(panelImage);
@@ -121,16 +112,29 @@ public class SignUpScreen extends JFrame {
 		getContentPane().add(hintPasswordField);		
 		getContentPane().add(btnSend);
 		getContentPane().add(lblStatus);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(new Dimension(400,400));      
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		pack();
+		setSize(new Dimension(400,400));  
+		setResizable(false);
 
-		
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				loginController.setEnable();
+
+			}
+		});
+
+
+
+
 
 
 
 
 	}
-	
+
 	public SignUpController getSignUpController() {
 		return signUpController;
 	}
@@ -148,6 +152,8 @@ public class SignUpScreen extends JFrame {
 	public void setLoginController(LoginController loginController) {
 		this.loginController = loginController;
 	}
-	
-	
+
+
 }
+
+

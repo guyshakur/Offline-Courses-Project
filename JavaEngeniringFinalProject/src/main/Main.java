@@ -12,7 +12,7 @@ import model.daoImpl.StudentDaoImplForSqlite;
 import model.daoImpl.StudentDaoImplMock;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
-import view.screens.SignUpScreen;
+import view.screens.SignUpDialog;
 import view.screens.TestScreen;
 
 public class Main {
@@ -52,15 +52,16 @@ public class Main {
 			String dbPath="jdbc:sqlite:"+fullPath+"students.db";
 			studentDaoImplForSqlite.setConnectionString(dbPath);
 			studentDaoImplForSqlite.connect();
-			
+
+
 			StudentDao studentDao=studentDaoImplForSqlite;
 			LoginController loginController=new LoginController();
 			loginController.setStudentDao(studentDao);
 			LoginScreen loginScreen =new LoginScreen();
-			SignUpScreen signUpScreen=new SignUpScreen();
+			SignUpDialog signUpDialog=new SignUpDialog(loginScreen);
 			TestScreen testScreen=new TestScreen();
 			loginController.setLoginScreen(loginScreen);
-			loginController.setSignUpScreen(signUpScreen);
+			loginController.setSignUpDialog(signUpDialog);
 			TestController testController=new TestController();
 			testController.setTestScreen(testScreen);
 			loginController.start();
