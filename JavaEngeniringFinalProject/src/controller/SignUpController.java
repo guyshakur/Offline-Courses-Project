@@ -2,45 +2,112 @@ package controller;
 
 import java.awt.EventQueue;
 
-import model.dao.StudentDao;
+import model.transferObjects.Student;
 import view.screens.LoginScreen;
 import view.screens.SignUpDialog;
+import view.screens.TestScreen;
+import model.Session;
+import model.dao.StudentDao;
+
 
 public class SignUpController implements Controller {
-	private static LoginController thisObj=null;
-	private static SignUpDialog registrationScreen=null;
+	private static SignUpController thisObj=null;
+	private static SignUpDialog signUpDialog=null;
 	private static LoginScreen loginScreen=null;
-	
+	private TestScreen testScreen=null;
+	private  StudentDao studentDao=null;
 
-	public static SignUpDialog getRegistrationScreen() {
-		return registrationScreen;
+	public SignUpController() {
+		thisObj=this;
 	}
 
-	public static void setRegistrationScreen(SignUpDialog registrationScreen) {
-		SignUpController.registrationScreen = registrationScreen;
+
+	public  SignUpDialog getRegistrationScreen() {
+		return signUpDialog;
 	}
+
+	public  void setSignUpDialog(SignUpDialog signUpDialog) {
+		SignUpController.signUpDialog = signUpDialog;
+	}
+
+
+
+	public StudentDao getStudentDao() {
+		return studentDao;
+	}
+
+
+
+	public void setStudentDao(StudentDao studentDao) {
+		this.studentDao = studentDao;
+	}
+
+
+
 
 	@Override
 	public void start() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
-					loginScreen.setLoginController(thisObj);
-					registrationScreen.setVisible(true);
-	
+					setEnable();
+					signUpDialog.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
-		
+		});		
 	}
 
-	@Override
-	public void setStudentDao(StudentDao studentDao) {
-		// TODO Auto-generated method stub
-		
+
+	public void setEnable() {
+		boolean isEnabled=loginScreen.isEnabled();
+		loginScreen.setEnabled(!isEnabled);
+
+
 	}
+
+
+
+	public void setLoginScreen(LoginScreen loginScreen) {
+		SignUpController.loginScreen = loginScreen;
+	}
+
+
+	public void saveUser(String firstName,String lastName,String userName,String password) {
+		
+		
+		Student student =new Student();
+		student.setFirstName(firstName);
+		student.setLastName(lastName);
+		student.setUserName(userName);
+		student.setPassword(password);
+
+		try {
+			Session.getInstance().setCurrentUser(student);
+			this.studentDao.insert(student);
+
+
+					Controller controller=
+							NavigationFactory.create("After Successfull Login");
+					controller.setStudentDao(studentDao);
+					controller.start();
+
+
+		} catch (Exception e) {
+			
+			try {
+				if(studentDao.isUserExist(userName)) {
+					signUpDialog.displayStatusLabel();
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			e.printStackTrace();		}
+	}
+
 
 }

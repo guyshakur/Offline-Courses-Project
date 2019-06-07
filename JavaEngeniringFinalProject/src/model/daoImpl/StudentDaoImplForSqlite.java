@@ -52,9 +52,9 @@ public class StudentDaoImplForSqlite implements StudentDao {
 		}
 		finally {
 
-			if(statment!=null) {
-				statment.close();
-			}
+//			if(statment!=null) {
+//				statment.close();
+//			}
 		}
 
 	}

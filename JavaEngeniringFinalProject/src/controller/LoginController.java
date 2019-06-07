@@ -13,6 +13,7 @@ import model.transferObjects.Student;
 import view.screens.LoginScreen;
 import view.screens.SignUpDialog;
 import view.screens.TestScreen;
+import view.utilities.InputValidator;
 
 public class LoginController implements Controller {
 	private static LoginController thisObj=null;
@@ -66,7 +67,6 @@ public class LoginController implements Controller {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					loginScreen.setLoginController(thisObj);
 					LoginController.loginScreen.setVisible(true);
 
 				} catch (Exception e) {
@@ -77,22 +77,7 @@ public class LoginController implements Controller {
 
 	}
 
-	public void startSignUpDialog() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				Controller controller=
-						NavigationFactory.create("Login");
-				signUpDialog.setLoginController(thisObj);	
-				signUpDialog.setLocationRelativeTo(loginScreen);
-				setEnable();
-				signUpDialog.setVisible(true); 
 
-
-
-			}
-		});
-
-	}
 
 
 
@@ -106,7 +91,7 @@ public class LoginController implements Controller {
 				loginScreen	.close();
 				Controller controller=
 						NavigationFactory.create("After Successfull Login");
-				controller.setStudentDao(studentDao);
+				//controller.setStudentDao(studentDao);
 				controller.start();
 
 			}
@@ -128,13 +113,10 @@ public class LoginController implements Controller {
 	public  void setSignUpDialog(SignUpDialog signUpDialog) {
 		LoginController.signUpDialog = signUpDialog;
 	}
+	
+	
 
-	public void setEnable() {
+	
 
-		if (loginScreen.isEnabled()) {
-			loginScreen.setEnabled(false);
-		}
-		else
-			loginScreen.setEnabled(true);
-	}
+	
 }

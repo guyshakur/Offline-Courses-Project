@@ -38,6 +38,7 @@ import model.daoImpl.StudentDaoImplForSqlite;
 import view.utilities.HintPasswordField;
 import view.utilities.HintPasswordField;
 import view.utilities.HintTextField;
+import view.utilities.InputValidator;
 import view.utilities.HintTextField;
 import view.utilities.RoundedBorder;
 import view.utilities.RoundedCorners;
@@ -58,9 +59,11 @@ public class LoginScreen extends JFrame  {
 	JLabel labelImage;
 	JLabel labelSignUp;
 	HintTextField hintTextUserName;
-	HintPasswordField hintPasswordPassword;
+	HintPasswordField hintPasswordField;
 	JButton buttonLogin;
 	JLabel labelStatus;
+
+	private SignUpController signUpController;
 
 	public LoginScreen() {
 
@@ -87,10 +90,10 @@ public class LoginScreen extends JFrame  {
 
 
 		// JtextPassword
-		hintPasswordPassword = new HintPasswordField("Password");
-		hintPasswordPassword.setPreferredSize(new Dimension(600, 40));
-		hintPasswordPassword.setMaximumSize(new Dimension(600, 40));
-		hintPasswordPassword.setFont(textBoxFont);
+		hintPasswordField = new HintPasswordField("Password");
+		hintPasswordField.setPreferredSize(new Dimension(600, 40));
+		hintPasswordField.setMaximumSize(new Dimension(600, 40));
+		hintPasswordField.setFont(textBoxFont);
 
 		//panelTexts
 		panelTexts = new JPanel();
@@ -99,7 +102,7 @@ public class LoginScreen extends JFrame  {
 		panelTexts.setLayout(new BoxLayout(panelTexts, BoxLayout.Y_AXIS));
 		panelTexts.add(hintTextUserName);
 		panelTexts.add(Box.createRigidArea(new Dimension(0,40)));
-		panelTexts.add(hintPasswordPassword);
+		panelTexts.add(hintPasswordField);
 
 
 
@@ -173,9 +176,7 @@ public class LoginScreen extends JFrame  {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
-				
-				loginController.startSignUpDialog();
+				signUpController.start();
 				
 			}
 			
@@ -206,8 +207,11 @@ public class LoginScreen extends JFrame  {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				loginController.login(hintTextUserName.getText(), String.copyValueOf(hintPasswordPassword.getPassword()));
+				if(!validateInput()) {
+					labelStatus.setText("invalid User Name or Password");
+					return;
+				}
+				loginController.login(hintTextUserName.getText(), String.valueOf(hintPasswordField.getPassword()));
 				
 
 
@@ -244,6 +248,26 @@ public class LoginScreen extends JFrame  {
 	
 	public void close() {
 		this.dispose();
+	}
+
+
+
+	public SignUpController getSignUpController() {
+		return signUpController;
+	}
+
+
+
+	public void setSignUpController(SignUpController signUpController) {
+		this.signUpController = signUpController;
+	}
+	
+	
+	public boolean validateInput() {
+		return 
+				InputValidator.validateHintField(hintTextUserName, "User Name") &&
+				InputValidator.validatePasswordField(hintPasswordField, "Password");
+
 	}
 
 

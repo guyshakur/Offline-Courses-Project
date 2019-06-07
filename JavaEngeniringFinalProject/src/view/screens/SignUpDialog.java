@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -17,13 +19,16 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
 import controller.SignUpController;
 import view.utilities.HintPasswordField;
 import view.utilities.HintTextField;
+import view.utilities.InputValidator;
 import view.utilities.RoundBorder;
 
 public class SignUpDialog extends JDialog {
@@ -44,7 +49,7 @@ public class SignUpDialog extends JDialog {
 	private JLabel lblSignUp;
 
 
-	public SignUpDialog(Frame owner) {
+	public SignUpDialog() {
 
 		setModalityType(ModalityType.APPLICATION_MODAL);
 
@@ -88,10 +93,25 @@ public class SignUpDialog extends JDialog {
 		btnSend = new JButton("Send");
 		btnSend.setBounds(146, 297, 89, 23);
 		btnSend.setBorder(new RoundBorder());
+		btnSend.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!validateInput()) {
+					lblStatus.setText("Please fill all the input fields");
+					return;
+				}
+				signUpController.saveUser(hintTextfirstName.getText(), hintLasttName.getText(), hintuserName.getText(), 
+						String.valueOf(hintPasswordField.getPassword()));
+
+
+
+			}
+		});
 
 		//lblStatus
-		lblStatus = new JLabel("");
-		lblStatus.setBounds(166, 331, 46, 14);
+		lblStatus = new JLabel();
+		lblStatus.setBounds(144, 331, 124, 14);
 
 
 
@@ -114,14 +134,14 @@ public class SignUpDialog extends JDialog {
 		getContentPane().add(lblStatus);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		pack();
-		setSize(new Dimension(400,400));  
+		setSize(400,400);  
 		setResizable(false);
 
 
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				loginController.setEnable();
+				signUpController.setEnable();
 
 			}
 		});
@@ -153,6 +173,18 @@ public class SignUpDialog extends JDialog {
 		this.loginController = loginController;
 	}
 
+	public void displayStatusLabel() {
+		lblStatus.setText("User Name Exist");
+
+	}
+
+	public boolean validateInput() {
+		return InputValidator.validateHintField(hintTextfirstName, "First Name") &&
+				InputValidator.validateHintField(hintLasttName, "Last Name") &&
+				InputValidator.validateHintField(hintuserName, "User Name") &&
+				InputValidator.validatePasswordField(hintPasswordField, "Password");
+
+	}
 
 }
 

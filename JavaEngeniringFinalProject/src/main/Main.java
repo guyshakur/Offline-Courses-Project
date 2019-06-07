@@ -6,6 +6,7 @@ import java.net.URLDecoder;
 import javax.swing.JOptionPane;
 
 import controller.LoginController;
+import controller.SignUpController;
 import controller.TestController;
 import model.dao.StudentDao;
 import model.daoImpl.StudentDaoImplForSqlite;
@@ -24,8 +25,6 @@ public class Main {
 				public void run() {
 					try {
 						startApplication();
-						//						TestScreen frame = new TestScreen();
-						//						frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -39,32 +38,61 @@ public class Main {
 			JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 		}
 
-		//new LoginScreen();
 	}
 
 	public static void startApplication() {
 		try {
 			StudentDaoImplForSqlite studentDaoImplForSqlite=new StudentDaoImplForSqlite();
+			StudentDaoImplForSqlite studentDaoImplForSqlite2=new StudentDaoImplForSqlite();
 			//inject dependency to the object 
 			String path=Main.class.getClassLoader().getResource("").getPath();
+			//System.out.println(path);
 			String fullPath=URLDecoder.decode(path,"UTF-8");
 			fullPath=fullPath.substring(1);
 			String dbPath="jdbc:sqlite:"+fullPath+"students.db";
 			studentDaoImplForSqlite.setConnectionString(dbPath);
 			studentDaoImplForSqlite.connect();
-
-
+			studentDaoImplForSqlite2.setConnectionString(dbPath);
+			studentDaoImplForSqlite2.connect();
+			
 			StudentDao studentDao=studentDaoImplForSqlite;
+			
+			StudentDao studentDao2=studentDaoImplForSqlite2;
+
+			
+
+			
+			
+			SignUpController signUpController=new SignUpController();
 			LoginController loginController=new LoginController();
-			loginController.setStudentDao(studentDao);
 			LoginScreen loginScreen =new LoginScreen();
-			SignUpDialog signUpDialog=new SignUpDialog(loginScreen);
-			TestScreen testScreen=new TestScreen();
+			loginScreen.setLoginController(loginController);
+			loginScreen.setSignUpController(signUpController);
+			SignUpDialog signUpDialog=new SignUpDialog();
+			
+			
+			
+
+
+			
+			signUpController.setLoginScreen(loginScreen);
+			signUpController.setSignUpDialog(signUpDialog);
+			signUpController.setStudentDao(studentDao);
+			signUpDialog.setSignUpController(signUpController);
+
+			
+			loginController.setStudentDao(studentDao);
 			loginController.setLoginScreen(loginScreen);
 			loginController.setSignUpDialog(signUpDialog);
+			
+			
+			TestScreen testScreen=new TestScreen();
 			TestController testController=new TestController();
 			testController.setTestScreen(testScreen);
+			testController.setStudentDao(studentDao);
 			loginController.start();
+			
+			
 		}
 		catch (Exception e){
 			System.out.println("Failed to Start Application. "+e.getMessage());

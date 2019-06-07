@@ -14,7 +14,7 @@ import view.screens.TestScreen;
 public class TestController implements Controller {
 	private static TestController thisObj=null;
 	private static TestScreen testScreen=null;
-	private StudentDao studentDao=null;
+	private static StudentDao studentDao=null;
 	
 	
 	
@@ -26,7 +26,8 @@ public class TestController implements Controller {
 
 
 	public void setStudentDao(StudentDao studentDao) {
-		this.studentDao = studentDao;
+
+		TestController.studentDao = studentDao;
 	}
 
 
