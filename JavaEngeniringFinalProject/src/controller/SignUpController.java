@@ -87,12 +87,15 @@ public class SignUpController implements Controller {
 		try {
 			Session.getInstance().setCurrentUser(student);
 			this.studentDao.insert(student);
+			
 
 
 					Controller controller=
 							NavigationFactory.create("After Successfull Login");
 					controller.setStudentDao(studentDao);
 					controller.start();
+					loginScreen.dispose();
+					signUpDialog.dispose();
 
 
 		} catch (Exception e) {
@@ -100,6 +103,7 @@ public class SignUpController implements Controller {
 			try {
 				if(studentDao.isUserExist(userName)) {
 					signUpDialog.displayStatusLabel();
+					return;
 				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

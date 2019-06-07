@@ -26,10 +26,12 @@ import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
 import controller.SignUpController;
+import model.dao.StudentDao;
 import view.utilities.HintPasswordField;
 import view.utilities.HintTextField;
 import view.utilities.InputValidator;
 import view.utilities.RoundBorder;
+import javax.swing.SwingConstants;
 
 public class SignUpDialog extends JDialog {
 
@@ -97,6 +99,7 @@ public class SignUpDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if(!validateInput()) {
 					lblStatus.setText("Please fill all the input fields");
 					return;
@@ -111,7 +114,8 @@ public class SignUpDialog extends JDialog {
 
 		//lblStatus
 		lblStatus = new JLabel();
-		lblStatus.setBounds(144, 331, 124, 14);
+		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStatus.setBounds(77, 331, 405, 14);
 
 
 

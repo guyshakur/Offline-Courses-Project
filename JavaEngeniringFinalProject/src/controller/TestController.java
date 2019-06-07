@@ -56,8 +56,9 @@ public class TestController implements Controller {
 				try {
 					testScreen.setTestController(thisObj);
 					Student student=studentDao.getStudent(Session.getInstance().getCurrentUser().getUserName());
-					testScreen.displayName(student.getFirstName());
+					testScreen.displayName(student.getFirstName(),student.getLastName());
 					TestController.testScreen.setVisible(true);
+					
 	
 				} catch (Exception e) {
 					e.printStackTrace();
