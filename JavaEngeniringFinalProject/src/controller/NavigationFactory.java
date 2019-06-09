@@ -12,7 +12,7 @@ public  class NavigationFactory {
 				return new LoginController();
 			
 			case "After Successfull Login":
-				return new TestController();
+				return new MainScreenController();
 			
 			case "Sign Up":
 				return new SignUpController();

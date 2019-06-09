@@ -208,7 +208,7 @@ public class LoginScreen extends JFrame  {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!validateInput()) {
-					labelStatus.setText("invalid User Name or Password");
+					labelStatus.setText("please fill all the fields");
 					return;
 				}
 				loginController.login(hintTextUserName.getText(), String.valueOf(hintPasswordField.getPassword()));

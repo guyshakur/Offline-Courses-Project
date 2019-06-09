@@ -7,14 +7,14 @@ import javax.swing.JOptionPane;
 
 import controller.LoginController;
 import controller.SignUpController;
-import controller.TestController;
+import controller.MainScreenController;
 import model.dao.StudentDao;
 import model.daoImpl.StudentDaoImplForSqlite;
 import model.daoImpl.StudentDaoImplMock;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
 import view.screens.SignUpDialog;
-import view.screens.TestScreen;
+import view.screens.MainScreen;
 
 public class Main {
 
@@ -84,10 +84,11 @@ public class Main {
 			loginController.setStudentDao(studentDao);
 			loginController.setLoginScreen(loginScreen);
 			loginController.setSignUpDialog(signUpDialog);
+
 			
 			
-			TestScreen testScreen=new TestScreen();
-			TestController testController=new TestController();
+			MainScreen testScreen=new MainScreen();
+			MainScreenController testController=new MainScreenController();
 			testController.setTestScreen(testScreen);
 			testController.setStudentDao(studentDao);
 			loginController.start();
@@ -110,7 +111,7 @@ public class Main {
 			LoginController loginController=new LoginController();
 			loginController.setStudentDao(studentDao);
 			LoginScreen loginScreen =new LoginScreen();
-			TestScreen testScreen=new TestScreen();
+			MainScreen testScreen=new MainScreen();
 			loginController.setLoginScreen(loginScreen);
 			loginController.setTestScreen(testScreen);
 			loginController.start();

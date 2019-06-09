@@ -9,11 +9,11 @@ import model.Session;
 import model.dao.StudentDao;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
-import view.screens.TestScreen;
+import view.screens.MainScreen;
 
-public class TestController implements Controller {
-	private static TestController thisObj=null;
-	private static TestScreen testScreen=null;
+public class MainScreenController implements Controller {
+	private static MainScreenController thisObj=null;
+	private static MainScreen testScreen=null;
 	private static StudentDao studentDao=null;
 	
 	
@@ -27,24 +27,24 @@ public class TestController implements Controller {
 
 	public void setStudentDao(StudentDao studentDao) {
 
-		TestController.studentDao = studentDao;
+		MainScreenController.studentDao = studentDao;
 	}
 
 
 
-	public TestScreen getTestScreen() {
+	public MainScreen getTestScreen() {
 		return testScreen;
 	}
 
 
 
-	public void setTestScreen(TestScreen testScreen) {
+	public void setTestScreen(MainScreen testScreen) {
 		this.testScreen = testScreen;
 	}
 
 
 
-	public TestController() {
+	public MainScreenController() {
 		thisObj=this;
 	}
 	
@@ -57,7 +57,7 @@ public class TestController implements Controller {
 					testScreen.setTestController(thisObj);
 					Student student=studentDao.getStudent(Session.getInstance().getCurrentUser().getUserName());
 					testScreen.displayName(student.getFirstName(),student.getLastName());
-					TestController.testScreen.setVisible(true);
+					MainScreenController.testScreen.setVisible(true);
 					
 	
 				} catch (Exception e) {

@@ -10,17 +10,22 @@ import javax.swing.JRootPane;
 import model.Session;
 import model.dao.StudentDao;
 import model.transferObjects.Student;
+import view.screens.CCourseScreen;
+import view.screens.CQuizScreen;
+import view.screens.CQuizPage2Screen;
+import view.screens.CQuizPage3Screen;
 import view.screens.LoginScreen;
 import view.screens.SignUpDialog;
-import view.screens.TestScreen;
+import view.screens.MainScreen;
 import view.utilities.InputValidator;
 
 public class LoginController implements Controller {
 	private static LoginController thisObj=null;
 	private static LoginScreen loginScreen=null;
-	//private static SignUpScreen signUpScreen=null;
+	private static CQuizScreen cQuizScreen=null;
+	private static CQuizPage2Screen cQuizScreenNextPage=null;
 	private static SignUpDialog signUpDialog=null;
-	private TestScreen testScreen=null;
+	private MainScreen testScreen=null;
 	private StudentDao studentDao=null;
 
 	public LoginController() {
@@ -40,13 +45,13 @@ public class LoginController implements Controller {
 
 
 
-	public TestScreen getTestScreen() {
+	public MainScreen getTestScreen() {
 		return testScreen;
 	}
 
 
 
-	public void setTestScreen(TestScreen testScreen) {
+	public void setTestScreen(MainScreen testScreen) {
 		this.testScreen = testScreen;
 	}
 
@@ -67,7 +72,15 @@ public class LoginController implements Controller {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginController.loginScreen.setVisible(true);
+					CQuizPage3Screen cQuizPage3Screen=new CQuizPage3Screen();
+					cQuizPage3Screen.setVisible(true);
+					
+//					cQuizScreenNextPage=new CQuizPage2Screen();
+//					LoginController.cQuizScreenNextPage.setVisible(true);
+					
+//					cQuizScreen=new CQuizScreen();
+//					LoginController.cQuizScreen.setVisible(true);
+					//LoginController.loginScreen.setVisible(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,6 +97,8 @@ public class LoginController implements Controller {
 
 	public void login(String userName,String password) {
 		try {
+			
+			
 			if(studentDao.login(userName, password)) {
 				Student currentUser=new Student();
 				currentUser.setUserName(userName);
@@ -116,7 +131,6 @@ public class LoginController implements Controller {
 	
 	
 
-	
 
 	
 }

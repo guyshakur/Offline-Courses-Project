@@ -101,6 +101,7 @@ public class SignUpDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(!validateInput()) {
+					lblStatus.setBounds(0, 331, 405, 14);
 					lblStatus.setText("Please fill all the input fields");
 					return;
 				}
@@ -115,7 +116,7 @@ public class SignUpDialog extends JDialog {
 		//lblStatus
 		lblStatus = new JLabel();
 		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStatus.setBounds(77, 331, 405, 14);
+		lblStatus.setBounds(-10, 331, 405, 14);
 
 
 
@@ -178,6 +179,7 @@ public class SignUpDialog extends JDialog {
 	}
 
 	public void displayStatusLabel() {
+		lblStatus.setBounds(-10, 331, 405, 14);
 		lblStatus.setText("User Name Exist");
 
 	}

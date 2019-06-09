@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
 import view.screens.SignUpDialog;
-import view.screens.TestScreen;
+import view.screens.MainScreen;
 import model.Session;
 import model.dao.StudentDao;
 
@@ -14,7 +14,7 @@ public class SignUpController implements Controller {
 	private static SignUpController thisObj=null;
 	private static SignUpDialog signUpDialog=null;
 	private static LoginScreen loginScreen=null;
-	private TestScreen testScreen=null;
+	private MainScreen testScreen=null;
 	private  StudentDao studentDao=null;
 
 	public SignUpController() {

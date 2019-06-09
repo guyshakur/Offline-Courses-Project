@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.TestController;
+import controller.MainScreenController;
 import model.dao.StudentDao;
 import view.utilities.RoundedBorder;
 
@@ -22,15 +22,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class TestScreen extends JFrame {
-	private TestController testController=null;
+public class MainScreen extends JFrame {
+	
+	
+	JButton btnCCourse;
+	private MainScreenController testController=null;
 	private JLabel lblFirstName;
 	Color c=new Color(171,240,250);
-	public TestController getTestController() {
+	public MainScreenController getTestController() {
 		return testController;
 	}
 
-	public void setTestController(TestController testController) {
+	public void setTestController(MainScreenController testController) {
 		this.testController = testController;
 	}
 	
@@ -43,7 +46,7 @@ public class TestScreen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TestScreen() {
+	public MainScreen() {
 		getContentPane().setBackground(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1392, 783);
@@ -70,17 +73,20 @@ public class TestScreen extends JFrame {
 		panel_1.add(Courses_panel, "name_63400458013500");
 		Courses_panel.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("C");
-		btnNewButton_1.setBackground(c);
-		btnNewButton_1.setBorder(new RoundedBorder());
-		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 70));
-		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnCCourse = new JButton("C");
+		btnCCourse.setBackground(c);
+		btnCCourse.setBorder(new RoundedBorder());
+		btnCCourse.setFont(new Font("Cambria", Font.BOLD, 70));
+		btnCCourse.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CCourseScreen cCourseScreen=new CCourseScreen();
+				cCourseScreen.setVisible(true);
+				
 			}
 		});
-		btnNewButton_1.setBounds(10, 11, 500, 340);
-		Courses_panel.add(btnNewButton_1);
+		btnCCourse.setBounds(10, 11, 500, 340);
+		Courses_panel.add(btnCCourse);
 		
 		JButton btnJava = new JButton("JAVA");
 		btnJava.setFont(new Font("Cambria", Font.BOLD, 70));
@@ -176,6 +182,18 @@ public class TestScreen extends JFrame {
 		JButton btnCourses = new JButton("Courses");
 		btnCourses.setEnabled(false);
 		JButton btnGoals = new JButton("Goals");
+		
+		btnCCourse=new JButton();
+		btnCCourse.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CCourseScreen cCourseScreen=new CCourseScreen();
+				cCourseScreen.setVisible(true);
+				
+				
+			}
+		});
 		
 		btnCourses.setFont(new Font("Cambria", Font.BOLD, 20));
 		btnCourses.setBackground(c);
