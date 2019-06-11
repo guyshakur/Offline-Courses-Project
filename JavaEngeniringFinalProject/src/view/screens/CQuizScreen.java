@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.CQuizController;
 import view.utilities.RoundBorder;
 
 import javax.swing.JLabel;
@@ -22,6 +23,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -32,11 +34,18 @@ import javax.swing.ScrollPaneConstants;
 
 import java.awt.TextField;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import javax.swing.Timer;
+
 
 public class CQuizScreen extends JFrame {
 	Color c=new Color(171,240,250);
 	Color c2=new Color(169,192,237);
 
+	private CQuizController cQuizController=null;
 	private JPanel contentPane;
 	private JPanel panelBar;
 	private JPanel panelImage;
@@ -89,6 +98,10 @@ public class CQuizScreen extends JFrame {
 	private JTextArea textAreaQuetion4;
 	private JLabel lblQuetion4;
 	JButton btnNextPage;
+	private JLabel lblMin;
+	private JLabel lblSec;
+	private JButton btnStartTest;
+	Timer timer;
 
 
 
@@ -345,9 +358,11 @@ public class CQuizScreen extends JFrame {
 		scrollPaneQuetion4.setBounds(10, 0, 273, 218);
 		panelQuetion4.add(scrollPaneQuetion4);
 		textAreaQuetion4 = new JTextArea();
+		textAreaQuetion4.setEditable(false);
 		textAreaQuetion4.setBackground(c);
 		textAreaQuetion4.setText("Choose the best statement with respect to following three program snippets.\r\n/*Program Snippet 1 with for loop*/\r\nfor (i = 0; i < 10; i++)\r\n{\r\n   /*statement1*/\r\n   continue;\r\n   /*statement2*/\r\n}\r\n \r\n/*Program Snippet 2 with while loop*/\r\ni = 0;\r\nwhile (i < 10)\r\n{\r\n   /*statement1*/\r\n   continue;\r\n   /*statement2*/\r\n   i++;\r\n}\r\n \r\n/*Program Snippet 3 with do-while loop*/\r\ni = 0;\r\ndo\r\n{\r\n   /*statement1*/\r\n   continue;\r\n   /*statement2*/\r\n   i++;\r\n}while (i < 10);\r\n");
 		scrollPaneQuetion4.setViewportView(textAreaQuetion4);
+		textAreaQuetion4.setCaretPosition(0);
 		lblQuetion4 = new JLabel("4.");
 		scrollPaneQuetion4.setColumnHeaderView(lblQuetion4);
 		scrollPaneQuetion4.getColumnHeader().setBackground(c);
@@ -374,11 +389,24 @@ public class CQuizScreen extends JFrame {
 		btnGroupQuetion4.add(rdbQuetion4C);
 		btnGroupQuetion4.add(rdbQuetion4D);
 		
+		//btnStartTest
+		btnStartTest = new JButton("Start Test");
+		btnStartTest.setBounds(208, 824, 89, 23);
+		btnStartTest.setBorder(new RoundBorder());
 		//btnNext
 		btnNextPage = new JButton("Next");
 		btnNextPage.setBounds(333, 824, 89, 23);
 		btnNextPage.setBorder(new RoundBorder());
-
+		
+		//lbltimer
+		lblMin = new JLabel("00 :");
+		lblMin.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblMin.setBounds(940, 32, 35, 36);
+		lblSec = new JLabel("00");
+		lblSec.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSec.setBounds(975, 43, 46, 14);
+		
+		
 
 		//panelquizz
 		panelQuizz = new JPanel();
@@ -392,6 +420,9 @@ public class CQuizScreen extends JFrame {
 		panelQuizz.add(panelQuetion3);
 		panelQuizz.add(panelQuetion4);
 		panelQuizz.add(btnNextPage);
+		panelQuizz.add(btnStartTest);
+		panelQuizz.add(lblMin);
+		panelQuizz.add(lblSec);
 
 
 
@@ -410,12 +441,106 @@ public class CQuizScreen extends JFrame {
 		contentPane.add(panelBar);
 		contentPane.add(panelQuizz);
 		contentPane.setBackground(c);
-
+			
 		
 	
-		
+		btnStartTest.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				 timer=new Timer(1000, new ActionListener() {
+					 
+					int sec=10;
+					int min=0;
+					
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+					
+						if(sec<=0) {
+						min--;
+						sec=60;
+						
+						lblMin.setText("0"+min+":");
+						
+						}
+						
+						sec--;
+						if(sec<10)
+						lblSec.setText("0"+sec);
+						else
+							lblSec.setText(""+sec);
+						
+						
+						if(min==0&&sec==0) {
+							System.out.println("time's up");
+							timer.stop();
+						}
+						
+					
+						
+					}
+				});
+				
+				timer.start();
+				
+			}
+		});
 		
 
 
 	}
+
+
+
+
+
+	public CQuizController getcQuizController() {
+		return cQuizController;
+	}
+
+
+
+
+
+
+
+
+
+
+
+	public void setcQuizController(CQuizController cQuizController) {
+		this.cQuizController = cQuizController;
+	}
+
+
+
+
+
+	public JLabel getLblHelloFirstAndLastName() {
+		return lblHelloFirstAndLastName;
+	}
+
+
+
+
+
+	public void setLblHelloFirstAndLastName(JLabel lblHelloFirstAndLastName) {
+		this.lblHelloFirstAndLastName = lblHelloFirstAndLastName;
+	}
+	
+	
+	
+	
+//	Timer timer =new Timer(1000,new ActionListener() {
+//		
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			
+//			
+//		}
+//	});
+	
+	
 }

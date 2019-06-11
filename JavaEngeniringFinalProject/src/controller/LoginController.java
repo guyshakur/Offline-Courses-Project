@@ -72,15 +72,8 @@ public class LoginController implements Controller {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CQuizPage3Screen cQuizPage3Screen=new CQuizPage3Screen();
-					cQuizPage3Screen.setVisible(true);
 					
-//					cQuizScreenNextPage=new CQuizPage2Screen();
-//					LoginController.cQuizScreenNextPage.setVisible(true);
-					
-//					cQuizScreen=new CQuizScreen();
-//					LoginController.cQuizScreen.setVisible(true);
-					//LoginController.loginScreen.setVisible(true);
+					LoginController.loginScreen.setVisible(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -97,8 +90,8 @@ public class LoginController implements Controller {
 
 	public void login(String userName,String password) {
 		try {
-			
-			
+
+
 			if(studentDao.login(userName, password)) {
 				Student currentUser=new Student();
 				currentUser.setUserName(userName);
@@ -128,9 +121,15 @@ public class LoginController implements Controller {
 	public  void setSignUpDialog(SignUpDialog signUpDialog) {
 		LoginController.signUpDialog = signUpDialog;
 	}
-	
-	
 
 
-	
+	public void cleanTextFields() {
+		loginScreen.getHintTextUserName().setText("");
+		loginScreen.getHintPasswordField().setText("");
+	}
+
+
+
+
+
 }

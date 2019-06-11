@@ -272,6 +272,31 @@ public class LoginScreen extends JFrame  {
 
 
 
+	public HintTextField getHintTextUserName() {
+		return hintTextUserName;
+	}
+
+
+
+	public void setHintTextUserName(HintTextField hintTextUserName) {
+		this.hintTextUserName = hintTextUserName;
+	}
+
+
+
+	public HintPasswordField getHintPasswordField() {
+		return hintPasswordField;
+	}
+
+
+
+	public void setHintPasswordField(HintPasswordField hintPasswordField) {
+		this.hintPasswordField = hintPasswordField;
+	}
+
+
+	
+
 //	public SignUpController getSignUpController() {
 //		return signUpController;
 //	}

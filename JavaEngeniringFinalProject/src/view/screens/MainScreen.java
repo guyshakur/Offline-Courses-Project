@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.MainScreenController;
@@ -13,260 +15,360 @@ import view.utilities.RoundedBorder;
 
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.Color;
 import java.awt.Cursor;
 
 import javax.swing.JButton;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Image;
 
 public class MainScreen extends JFrame {
-	
-	
-	JButton btnCCourse;
-	private MainScreenController testController=null;
-	private JLabel lblFirstName;
 	Color c=new Color(171,240,250);
-	public MainScreenController getTestController() {
-		return testController;
-	}
+	Color c2=new Color(169,192,237);
 
-	public void setTestController(MainScreenController testController) {
-		this.testController = testController;
-	}
-	
-	public void displayName(String firstName,String lastName) {
-		
-		lblFirstName.setText("Hello "+firstName+" "+lastName);
+	private JPanel panelBar;
+	private JPanel panelImage;
+	private JLabel lblImage;
+	private JLabel lblNewLabel;
+	JLabel lblHelloFirstAndLastName;
+	private JLabel lblClickLogOut;
+	private JLabel lblClickCourses;
+	private JLabel lblClickQuizzes;
+	private JSeparator separator;
+	private JSeparator separator_1;
+	private JLabel lblClickGoals;
+	private JSeparator separator_2;
+	private JPanel contentPane;
+	private MainScreenController mainScreenController=null;
+	private JButton btnCChoise;
+	private JButton btnJavaChoise;
+	private JButton btnDataStructuresChoise;
+	private JButton btnSqlChoise;
+	public String selectedItem;
 
-	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public MainScreen() {
-		getContentPane().setBackground(c);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1392, 783);
-		getContentPane().setLayout(null);
+
+		//panelImage & lblImage
+		ImageIcon image_icon=new ImageIcon(getClass().getResource("/view/images/lala.png"));
+		Image image=image_icon.getImage();
+		Image fixedImage=image.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+		image_icon=new ImageIcon(fixedImage);
+		lblImage = new JLabel();
+		panelImage = new JPanel();
+		panelImage.setSize(120,120);
+		lblImage.setIcon(image_icon);
+		lblImage.setBounds(10, 11, 46, 14);
+		lblImage.setSize(120,120);
+		panelImage.add(lblImage);
+		panelImage.setBounds(10, 13, 143, 138);
+		panelImage.setLayout(null);
+		panelImage.setBackground(c2);
+
+
+
+		//lblhellousername
+		lblHelloFirstAndLastName = new JLabel("New label");
+		lblHelloFirstAndLastName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHelloFirstAndLastName.setBounds(20, 160, 133, 14);
+
+		//lblClickLogOut
+		lblClickLogOut = new JLabel("Log Out");
+		lblClickLogOut.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblClickLogOut.setBounds(61, 185, 46, 14);
+
+		//lblClickCourses
+		lblClickCourses = new JLabel("Courses");
+		lblClickCourses.putClientProperty("courses", lblClickCourses);
+		lblClickCourses.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblClickCourses.setBounds(61, 274, 70, 14);
+		lblClickCourses.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		//lblClickQuizzes
+		lblClickQuizzes = new JLabel("Quizzes");
+		lblClickQuizzes.putClientProperty("Quizzes", lblClickQuizzes);
+		lblClickQuizzes.getClientProperty("Quizzes").getClass().getName();
+		lblClickQuizzes.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblClickQuizzes.setBounds(61, 311, 70, 14);
+		lblClickQuizzes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		//lblClickGoals
+		lblClickGoals = new JLabel("Goals");
+		lblClickGoals.setBounds(61, 349, 46, 14);
+		lblClickGoals.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		//separators
+		separator = new JSeparator();
+		separator.setBackground(Color.BLACK);
+		separator.setBounds(10, 298, 143, 2);
+		separator_1 = new JSeparator();
+		separator_1.setBackground(Color.BLACK);
+		separator_1.setBounds(10, 336, 143, 2);
+		separator_2 = new JSeparator();
+		separator_2.setBackground(Color.BLACK);
+		separator_2.setBounds(10, 374, 143, 2);
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBackground(Color.BLACK);
+		separator_3.setForeground(Color.BLACK);
+		separator_3.setBounds(151, 44, 296, 2);
+
+
+		//panelBar
+		panelBar = new JPanel();
+		panelBar.setLayout(null);
+		panelBar.setBounds(0, 0, 183, 1137);
+		panelBar.add(lblHelloFirstAndLastName);
+		panelBar.add(panelImage);
+		panelBar.add(lblClickLogOut);
+		panelBar.add(lblClickCourses);
+		panelBar.add(lblClickQuizzes);
+		panelBar.add(separator);
+		panelBar.add(separator_1);
+		panelBar.add(lblClickGoals);
+		panelBar.add(separator_2);
+		panelBar.setBackground(c2);
 		
-		lblFirstName = new JLabel("New label");
-		lblFirstName.setBounds(50, 287, 175, 62);
-		getContentPane().add(lblFirstName);
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(c);
-		panel.setBounds(24, 421, 201, 293);
-		getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(c);
-		panel_1.setBounds(288, 11, 1078, 722);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(new CardLayout(0, 0));
-		
-		JPanel Courses_panel = new JPanel();
-		Courses_panel.setBackground(c);
-		panel_1.add(Courses_panel, "name_63400458013500");
-		Courses_panel.setLayout(null);
-		
-		JButton btnCCourse = new JButton("C");
-		btnCCourse.setBackground(c);
-		btnCCourse.setBorder(new RoundedBorder());
-		btnCCourse.setFont(new Font("Cambria", Font.BOLD, 70));
-		btnCCourse.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCCourse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CCourseScreen cCourseScreen=new CCourseScreen();
-				cCourseScreen.setVisible(true);
-				
+		btnCChoise = new JButton("C");
+		btnCChoise.setBackground(Color.LIGHT_GRAY);
+		btnCChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnCChoise.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnCCourse.setBounds(10, 11, 500, 340);
-		Courses_panel.add(btnCCourse);
+		btnCChoise.setBounds(288, 90, 213, 198);
 		
-		JButton btnJava = new JButton("JAVA");
-		btnJava.setFont(new Font("Cambria", Font.BOLD, 70));
-		btnJava.setBackground(c);
-		btnJava.setBorder(new RoundedBorder());
-		btnJava.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnJava.setBounds(568, 11, 500, 340);
-		Courses_panel.add(btnJava);
+		btnJavaChoise = new JButton("JAVA");
+		btnJavaChoise.setBackground(Color.LIGHT_GRAY);
+		btnJavaChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnJavaChoise.setBounds(798, 90, 213, 198);
 		
-		JButton btnDataStructures = new JButton("DATA STRUCTURES");
-		btnDataStructures.setFont(new Font("Cambria", Font.BOLD, 50));
-		btnDataStructures.setBackground(c);
-		btnDataStructures.setBorder(new RoundedBorder());
-		btnDataStructures.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDataStructures.setBounds(10, 371, 500, 340);
-		Courses_panel.add(btnDataStructures);
-		
-		JButton btnSql = new JButton("SQL");
-		btnSql.setFont(new Font("Cambria", Font.BOLD, 70));
-		btnSql.setBackground(c);
-		btnSql.setBorder(new RoundedBorder());
-		btnSql.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSql.setBounds(568, 371, 500, 340);
-		Courses_panel.add(btnSql);
-		
-		JPanel Quizzes_panel = new JPanel();
-		Quizzes_panel.setBackground(c);
-		panel_1.add(Quizzes_panel, "name_63436498058100");
-		Quizzes_panel.setLayout(null);
-		
-		JButton btnC = new JButton("C");
-		btnC.setFont(new Font("Cambria", Font.BOLD, 70));
-		btnC.setBackground(c);
-		btnC.setBorder(new RoundedBorder());
-		btnC.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnC.setBounds(568, 11, 500, 340);
-		Quizzes_panel.add(btnC);
-		
-		JButton btnJava_1 = new JButton("JAVA");
-		btnJava_1.setFont(new Font("Cambria", Font.BOLD, 70));
-		btnJava_1.setBackground(c);
-		btnJava_1.setBorder(new RoundedBorder());
-		btnJava_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnJava_1.setBounds(10, 11, 500, 340);
-		Quizzes_panel.add(btnJava_1);
-		
-		JButton btnSql_1 = new JButton("SQL");
-		btnSql_1.setFont(new Font("Cambria", Font.BOLD, 70));
-		btnSql_1.setBackground(c);
-		btnSql_1.setBorder(new RoundedBorder());
-		btnSql_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSql_1.setBounds(10, 371, 500, 340);
-		Quizzes_panel.add(btnSql_1);
-		
-		JButton btnDataStructures_1 = new JButton("DATA STRUCTURES");
-		btnDataStructures_1.setFont(new Font("Cambria", Font.BOLD, 50));
-		btnDataStructures_1.setBackground(c);
-		btnDataStructures_1.setBorder(new RoundedBorder());
-		btnDataStructures_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDataStructures_1.setBounds(568, 371, 500, 340);
-		Quizzes_panel.add(btnDataStructures_1);
-		
-		JPanel Goals_panel = new JPanel();
-		Goals_panel.setBackground(c);
-		panel_1.add(Goals_panel, "name_63440637138700");
-		Goals_panel.setLayout(null);
-		
-		JButton btnMyMedals = new JButton("MY MEDALS");
-		btnMyMedals.setFont(new Font("Cambria", Font.BOLD, 55));
-		btnMyMedals.setBackground(c);
-		btnMyMedals.setBorder(new RoundedBorder());
-		btnMyMedals.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnMyMedals.setBounds(568, 11, 500, 340);
-		Goals_panel.add(btnMyMedals);
-		
-		JButton btnSolvedPuzzles = new JButton("SOLVED QUIZZES");
-		btnSolvedPuzzles.setFont(new Font("Cambria", Font.BOLD, 55));
-		btnSolvedPuzzles.setBackground(c);
-		btnSolvedPuzzles.setBorder(new RoundedBorder());
-		btnSolvedPuzzles.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSolvedPuzzles.setBounds(10, 11, 500, 340);
-		Goals_panel.add(btnSolvedPuzzles);
-		
-		JButton btnRankingTable = new JButton("RANKING TABLE");
-		btnRankingTable.setFont(new Font("Cambria", Font.BOLD, 55));
-		btnRankingTable.setBackground(c);
-		btnRankingTable.setBorder(new RoundedBorder());
-		btnRankingTable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRankingTable.setBounds(294, 371, 500, 340);
-		Goals_panel.add(btnRankingTable);
-		
-		JButton btnQuizzes = new JButton("Quizzes");
-		JButton btnCourses = new JButton("Courses");
-		btnCourses.setEnabled(false);
-		JButton btnGoals = new JButton("Goals");
-		
-		btnCCourse=new JButton();
-		btnCCourse.addActionListener(new ActionListener() {
-			
-			@Override
+		btnDataStructuresChoise = new JButton("DATA STRUCTURES");
+		btnDataStructuresChoise.setBackground(Color.LIGHT_GRAY);
+		btnDataStructuresChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnDataStructuresChoise.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CCourseScreen cCourseScreen=new CCourseScreen();
-				cCourseScreen.setVisible(true);
-				
-				
 			}
 		});
+		btnDataStructuresChoise.setBounds(288, 378, 213, 198);
 		
-		btnCourses.setFont(new Font("Cambria", Font.BOLD, 20));
-		btnCourses.setBackground(c);
-		btnCourses.setBorder(new RoundedBorder());
-		btnCourses.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCourses.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//removing panels
-				panel_1.removeAll();
-				panel_1.repaint();
-				panel_1.revalidate();
-				
-				btnCourses.setEnabled(false);
-				btnQuizzes.setEnabled(true);
-				btnGoals.setEnabled(true);
-				
-				//adding panels
-				panel_1.add(Courses_panel);
-				panel_1.repaint();
-				panel_1.revalidate();
-				
-			}
-		});
-		btnCourses.setBounds(10, 11, 181, 83);
-		panel.add(btnCourses);
+		btnSqlChoise = new JButton("SQL");
+		btnSqlChoise.setBackground(c);
+		btnSqlChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnSqlChoise.setBounds(798, 378, 213, 198);
 		
-		btnQuizzes.setFont(new Font("Cambria", Font.BOLD, 20));
-		btnQuizzes.setBackground(c);
-		btnQuizzes.setBorder(new RoundedBorder());
-		btnQuizzes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnQuizzes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//removing panels
-				panel_1.removeAll();
-				panel_1.repaint();
-				panel_1.revalidate();
-				
-				btnCourses.setEnabled(true);
-				btnQuizzes.setEnabled(false);
-				btnGoals.setEnabled(true);
-				
-				//adding panels
-				panel_1.add(Quizzes_panel);
-				panel_1.repaint();
-				panel_1.revalidate();
-			}
-		});
-		btnQuizzes.setBounds(10, 105, 181, 83);
-		panel.add(btnQuizzes);
+lblClickLogOut.addMouseListener(new MouseListener() {
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
-		btnGoals.setFont(new Font("Cambria", Font.BOLD, 20));
-		btnGoals.setBackground(c);
-		btnGoals.setBorder(new RoundedBorder());
-		btnGoals.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnGoals.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//removing panels
-				panel_1.removeAll();
-				panel_1.repaint();
-				panel_1.revalidate();
-				
-				btnCourses.setEnabled(true);
-				btnQuizzes.setEnabled(true);
-				btnGoals.setEnabled(false);
-				
-				//adding panels
-				panel_1.add(Goals_panel);
-				panel_1.repaint();
-				panel_1.revalidate();
-			}
-		});
-		btnGoals.setBounds(10, 199, 181, 83);
-		panel.add(btnGoals);
 	}
 	
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+		mainScreenController.logOut();
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+});
+
+lblClickCourses.addMouseListener(new MouseListener() {
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	lblClickCourses.setFont(new Font("Tahoma", Font.BOLD, 14));
+	lblClickQuizzes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	lblClickGoals.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	
+	btnCChoise.setText("C");
+	btnJavaChoise.setText("JAVA");
+	btnDataStructuresChoise.setText("Data Structures");
+	btnSqlChoise.setText("SQL");
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+});		
+
+lblClickQuizzes.addMouseListener(new MouseListener() {
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		lblClickCourses.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblClickQuizzes.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblClickGoals.setFont(new Font("Tahoma", Font.PLAIN, 14));		
+		
+		btnCChoise.setText("C Quiz");
+		btnJavaChoise.setText("JAVA Quiz");
+		btnDataStructuresChoise.setText("Data Structures Quiz");
+		btnSqlChoise.setText("SQL Structures Quiz");
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+});
+
+lblClickGoals.addMouseListener(new MouseListener() {
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		lblClickCourses.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblClickQuizzes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblClickGoals.setFont(new Font("Tahoma", Font.BOLD, 14));		
+		
+		
+		
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+});
+
+
+btnCChoise.addActionListener(new ActionListener() {
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		selectedItem=btnCChoise.getText();	
+		mainScreenController.selectedSubject(selectedItem);
+	}
+});
+		//maincontent
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		setSize(1300,900);
+		setResizable(false);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(panelBar);
+		contentPane.setBackground(c);
+		contentPane.add(btnCChoise);
+		contentPane.add(btnJavaChoise);
+		contentPane.add(btnSqlChoise);
+		contentPane.add(btnDataStructuresChoise);
+		
+		
+
+
+
+
+
+	}
+	
+	
+	
+
+	public MainScreenController getMainScreenController() {
+		return mainScreenController;
+	}
+
+	public void setMainScreenController(MainScreenController mainScreenController) {
+		this.mainScreenController = mainScreenController;
+	}
+
+
+
+	public JLabel getLblHelloFirstAndLastName() {
+		return lblHelloFirstAndLastName;
+	}
+
+
+
+	public void setLblHelloFirstAndLastName(JLabel lblHelloFirstAndLastName) {
+		this.lblHelloFirstAndLastName = lblHelloFirstAndLastName;
+	}
+	
+	
+
 }
+

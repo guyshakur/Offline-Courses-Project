@@ -10,11 +10,13 @@ import model.dao.StudentDao;
 import model.transferObjects.Student;
 import view.screens.LoginScreen;
 import view.screens.MainScreen;
+import view.utilities.DisplayFromSession;
 
 public class MainScreenController implements Controller {
 	private static MainScreenController thisObj=null;
-	private static MainScreen testScreen=null;
+	private static MainScreen mainScreen=null;
 	private static StudentDao studentDao=null;
+	private  static LoginController loginController=null;
 	
 	
 	
@@ -33,13 +35,13 @@ public class MainScreenController implements Controller {
 
 
 	public MainScreen getTestScreen() {
-		return testScreen;
+		return mainScreen;
 	}
 
 
 
-	public void setTestScreen(MainScreen testScreen) {
-		this.testScreen = testScreen;
+	public void setMainScreen(MainScreen testScreen) {
+		this.mainScreen = testScreen;
 	}
 
 
@@ -54,10 +56,11 @@ public class MainScreenController implements Controller {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					testScreen.setTestController(thisObj);
+					mainScreen.setMainScreenController(thisObj);
 					Student student=studentDao.getStudent(Session.getInstance().getCurrentUser().getUserName());
-					testScreen.displayName(student.getFirstName(),student.getLastName());
-					MainScreenController.testScreen.setVisible(true);
+					DisplayFromSession displayFromSession=new DisplayFromSession();
+					displayFromSession.displaylblUser(student.getFirstName(), student.getLastName(), mainScreen.getLblHelloFirstAndLastName());
+					MainScreenController.mainScreen.setVisible(true);
 					
 	
 				} catch (Exception e) {
@@ -68,7 +71,36 @@ public class MainScreenController implements Controller {
 		
 	}
 
-	
+
+
+	public void logOut() {
+		
+		mainScreen.dispose();
+		loginController.cleanTextFields();
+		loginController.start();
+		
+	}
+
+
+
+	public static LoginController getLoginController() {
+		return loginController;
+	}
+
+
+
+	public static void setLoginController(LoginController loginController) {
+		MainScreenController.loginController = loginController;
+	}
+
+	public void selectedSubject(String selected) {
+
+		Controller controller=
+				NavigationFactory.create(selected);
+		controller.setStudentDao(studentDao);
+		controller.start();
+	}
+
 	
 	
 }

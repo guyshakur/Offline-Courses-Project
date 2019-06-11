@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 
 import javax.swing.JOptionPane;
 
+import controller.CQuizController;
 import controller.LoginController;
 import controller.SignUpController;
 import controller.MainScreenController;
@@ -12,6 +13,7 @@ import model.dao.StudentDao;
 import model.daoImpl.StudentDaoImplForSqlite;
 import model.daoImpl.StudentDaoImplMock;
 import model.transferObjects.Student;
+import view.screens.CQuizScreen;
 import view.screens.LoginScreen;
 import view.screens.SignUpDialog;
 import view.screens.MainScreen;
@@ -87,11 +89,21 @@ public class Main {
 
 			
 			
-			MainScreen testScreen=new MainScreen();
-			MainScreenController testController=new MainScreenController();
-			testController.setTestScreen(testScreen);
-			testController.setStudentDao(studentDao);
+			MainScreen mainScreen=new MainScreen();
+			MainScreenController mainScreenController=new MainScreenController();
+			mainScreen.setMainScreenController(mainScreenController);
+			mainScreenController.setMainScreen(mainScreen);
+			mainScreenController.setLoginController(loginController);
+			
+			mainScreenController.setStudentDao(studentDao);
 			loginController.start();
+			
+			CQuizController cQuizController=new CQuizController();
+			CQuizScreen cQuizScreen=new CQuizScreen();
+			cQuizController.setMainScreen(mainScreen);
+			cQuizController.setcQuizScreen(cQuizScreen);
+			cQuizController.setStudentDao(studentDao);
+			cQuizScreen.setcQuizController(cQuizController);
 			
 			
 		}
