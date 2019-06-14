@@ -1,6 +1,7 @@
 package view.screens;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
@@ -461,6 +462,18 @@ public class CQuizPage3Screen extends JFrame {
 
 
 
+	}
+
+
+	public JLabel getLblMin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public JPanel getPanelBar() {
+		// TODO Auto-generated method stub
+		return panelBar;
 	}
 
 }

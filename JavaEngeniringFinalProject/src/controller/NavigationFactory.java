@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import view.screens.CQuizScreen;
 import view.screens.MainScreen;
+import view.utilities.Quiz;
 
 public  class NavigationFactory {
 	
@@ -21,12 +22,7 @@ public  class NavigationFactory {
 				return new SignUpController();
 				
 			case "C Quiz":
-//				CQuizScreen cQuizScreen=new CQuizScreen();
-//				CQuizController cQuizController=new CQuizController();
-//				cQuizScreen.setcQuizController(cQuizController);
-//				cQuizController.setcQuizScreen(cQuizScreen);
-//				MainScreen mainScreen=new MainScreen();
-//				mainScreen.dispose();
+
 				return new CQuizController();
 				
 			default :

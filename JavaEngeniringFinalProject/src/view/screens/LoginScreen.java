@@ -158,7 +158,6 @@ public class LoginScreen extends JFrame  {
 
 
 
-
 		//jframe
 		//getContentPane().add(panelTexts);
 		//getContentPane().add(panelButtons);
@@ -221,6 +220,8 @@ public class LoginScreen extends JFrame  {
 
 		setTitle("Please Login Here !");
 		setSize(500,600);
+		hintTextUserName.setText("");
+		hintPasswordField.setText("");
 		setResizable(false);
 
 	}

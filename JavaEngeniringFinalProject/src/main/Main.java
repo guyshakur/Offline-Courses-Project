@@ -13,9 +13,13 @@ import model.dao.StudentDao;
 import model.daoImpl.StudentDaoImplForSqlite;
 import model.daoImpl.StudentDaoImplMock;
 import model.transferObjects.Student;
+import view.screens.CQuizPage2Screen;
+import view.screens.CQuizPage3Screen;
 import view.screens.CQuizScreen;
 import view.screens.LoginScreen;
 import view.screens.SignUpDialog;
+import view.screens.StartTestDialog;
+import view.utilities.Quiz;
 import view.screens.MainScreen;
 
 public class Main {
@@ -59,11 +63,6 @@ public class Main {
 			
 			StudentDao studentDao=studentDaoImplForSqlite;
 			
-			StudentDao studentDao2=studentDaoImplForSqlite2;
-
-			
-
-			
 			
 			SignUpController signUpController=new SignUpController();
 			LoginController loginController=new LoginController();
@@ -105,7 +104,18 @@ public class Main {
 			cQuizController.setStudentDao(studentDao);
 			cQuizScreen.setcQuizController(cQuizController);
 			
+			StartTestDialog startTestDialog=new StartTestDialog();
+			startTestDialog.setcQuizController(cQuizController);
 			
+			Quiz quiz = new CQuizScreen();
+			cQuizController.setcQuizScreen((CQuizScreen) quiz);
+			quiz.setcQuizController(cQuizController);
+			cQuizController.setQuiz(quiz);
+			CQuizPage2Screen cQuizPage2Screen=new CQuizPage2Screen();
+			cQuizController.setcQuizPage2Screen(cQuizPage2Screen);
+			cQuizController.setLoginController(loginController);
+			CQuizPage3Screen cQuizPage3Screen=new CQuizPage3Screen();
+			cQuizController.setcQuizPage3Screen(cQuizPage3Screen);
 		}
 		catch (Exception e){
 			System.out.println("Failed to Start Application. "+e.getMessage());

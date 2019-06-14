@@ -113,5 +113,8 @@ public class SignUpController implements Controller {
 			e.printStackTrace();		}
 	}
 
-
 }
+	
+
+
+

@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.CQuizController;
 import view.utilities.InsertToQuetionPanel;
 import view.utilities.RoundBorder;
 
@@ -21,6 +22,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -34,6 +36,8 @@ import javax.swing.ScrollPaneConstants;
 
 import java.awt.TextField;
 import java.awt.Window;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class CQuizPage2Screen extends JFrame{
@@ -127,6 +131,8 @@ public class CQuizPage2Screen extends JFrame{
 	private JRadioButton rdbQuetion8D;
 	private ButtonGroup btnGroupQuetion8;
 	private JButton btnPrevPage;
+	private JLabel lblMin;
+	private JLabel lblSec;
 
 
 	public CQuizPage2Screen() {
@@ -194,7 +200,7 @@ public class CQuizPage2Screen extends JFrame{
 		//panelBar
 		panelBar = new JPanel();
 		panelBar.setLayout(null);
-		panelBar.setBounds(0, 0, 183, 1137);
+		panelBar.setBounds(0, 0, 173, 1137);
 		panelBar.add(lblHelloFirstAndLastName);
 		panelBar.add(panelImage);
 		panelBar.add(lblClickLogOut);
@@ -421,11 +427,20 @@ public class CQuizPage2Screen extends JFrame{
 		btnPrevPage = new JButton("Prev");
 		btnPrevPage.setBounds(192, 824, 89, 23);
 		btnPrevPage.setBorder(new RoundBorder());
+		
+		//lbltimer
+		lblMin = new JLabel("");
+		lblMin.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblMin.setBounds(910, 32, 65, 36);
+		lblSec = new JLabel("");
+		lblSec.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSec.setBounds(943, 32, 65, 36);
+
 
 
 		//panelquizz
 		panelQuizz = new JPanel();
-		panelQuizz.setBounds(186, 0, 1515, 1061);
+		panelQuizz.setBounds(165, 0, 1515, 1061);
 		panelQuizz.setBackground(c);
 		panelQuizz.setLayout(null);
 		panelQuizz.add(lblHeadline);
@@ -436,6 +451,8 @@ public class CQuizPage2Screen extends JFrame{
 		panelQuizz.add(panelQuetion8);
 		panelQuizz.add(btnNextPage);
 		panelQuizz.add(btnPrevPage);
+		panelQuizz.add(lblMin);
+		panelQuizz.add(lblSec);
 
 
 		//main panel
@@ -451,11 +468,65 @@ public class CQuizPage2Screen extends JFrame{
 				contentPane.add(panelQuizz);
 				contentPane.setBackground(c);
 
+				
+				lblClickLogOut.addMouseListener(new MouseListener() {
+					
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mousePressed(MouseEvent e) {
+					//	CQuizController.e
+						
+					}
+					
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 
 
 
 
 
+	}
+
+
+	public JLabel getLblSec() {
+		return lblSec;
+	}
+
+
+	public JLabel getLblMin() {
+		// TODO Auto-generated method stub
+		return lblMin;
+	}
+
+
+	public JLabel getLblHelloFirstAndLastName() {
+		return lblHelloFirstAndLastName;
+	}
+
+
+	public JPanel getPanelBar() {
+		return panelBar;
 	}
 
 }

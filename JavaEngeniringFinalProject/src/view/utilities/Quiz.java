@@ -1,128 +1,101 @@
-package view.screens;
+package view.utilities;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import controller.CQuizController;
-import view.utilities.Quiz;
-import view.utilities.RoundBorder;
+import view.screens.StartTestDialog;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.ScrollPane;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import java.awt.TextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-
-import java.awt.TextField;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import javax.swing.Timer;
-
-
-public class CQuizScreen extends Quiz {
+public class Quiz extends JFrame {
 	Color c=new Color(171,240,250);
 	Color c2=new Color(169,192,237);
 
-	private CQuizController cQuizController=null;
-	private JPanel contentPane;
-	private JPanel panelBar;
-	private JPanel panelImage;
-	private JLabel lblImage;
-	private JLabel lblNewLabel;
-	public JLabel lblHelloFirstAndLastName;
-	private JLabel lblClickLogOut;
-	private JLabel lblClickCourses;
-	private JLabel lblClickQuizzes;
-	private JSeparator separator;
-	private JSeparator separator_1;
-	private JLabel lblClickGoals;
-	private JSeparator separator_2;
-	private JPanel panelQuizz;
-	public JPanel panelQuetion1;
-	private JPanel panelQuetion3;
-	private JPanel panelQuetion4;
-	private JPanel panelQuetion5;
-	private JPanel panelQuetion6;
+	protected CQuizController cQuizController=null;
+	public JPanel contentPane;
+	public JPanel panelBar;
+	protected JPanel panelImage;
+	protected JLabel lblImage;
+	protected JLabel lblNewLabel;
+	protected JLabel lblHelloFirstAndLastName;
+	protected JLabel lblClickLogOut;
+	protected JLabel lblClickCourses;
+	protected JLabel lblClickQuizzes;
+	protected JSeparator separator;
+	protected JSeparator separator_1;
+	protected JLabel lblClickGoals;
+	protected JSeparator separator_2;
+	protected JPanel panelQuizz;
+	protected JPanel panelQuetion1;
+	protected JPanel panelQuetion3;
+	protected JPanel panelQuetion4;
+	protected JPanel panelQuetion5;
+	protected JPanel panelQuetion6;
 	JLabel lblHeadLine;
-	private JLabel lblHeadline;
-	private JScrollPane scrollpaneQuetion1;
-	private JTextArea textAreaQuetion1;
-	private JLabel lblQuetion1;
-	private JLabel lblQuetion2;
+	protected JLabel lblHeadline;
+	protected JScrollPane scrollpaneQuetion1;
+	protected JTextArea textAreaQuetion1;
+	protected JLabel lblQuetion1;
+	protected JLabel lblQuetion2;
 	JRadioButton rdbQuetion1A;
 	JRadioButton rdbQuetion1B;
 	JRadioButton rdbQuetion1C;
 	JRadioButton rdbQuetion1D;
-	private JPanel panelQuetion2;
-	private JScrollPane scrollPaneQuetion2;
-	private JRadioButton rdbQuetion2A;
-	private JRadioButton rdbQuetion2B;
-	private JRadioButton rdbQuetion2C;
-	private JRadioButton rdbQuetion2D;
-	private JTextArea textAreaQuetion2;
-	private JLabel label2;
-	private JScrollPane scrollPaneQuetion3;
-	private JRadioButton rdbQuetion3A;
-	private JRadioButton rdbQuetion3B;
-	private JRadioButton rdbQuetion3C;
-	private JRadioButton rdbQuetion3D;
-	private JTextArea textAreaQuetion3;
-	private JLabel label;
-	private JScrollPane scrollPaneQuetion4;
-	private JRadioButton rdbQuetion4D;
-	private JRadioButton rdbQuetion4A;
-	private JRadioButton rdbQuetion4B;
-	private JRadioButton rdbQuetion4C;
-	private JTextArea textAreaQuetion4;
-	private JLabel lblQuetion4;
-	JButton btnNextPage;
-	private JLabel lblMin;
-	private JLabel lblSec;
-	private JButton btnStartTest;
+	protected JPanel panelQuetion2;
+	protected JScrollPane scrollPaneQuetion2;
+	protected JRadioButton rdbQuetion2A;
+	protected JRadioButton rdbQuetion2B;
+	protected JRadioButton rdbQuetion2C;
+	protected JRadioButton rdbQuetion2D;
+	protected JTextArea textAreaQuetion2;
+	protected JLabel label2;
+	protected JScrollPane scrollPaneQuetion3;
+	protected JRadioButton rdbQuetion3A;
+	protected JRadioButton rdbQuetion3B;
+	protected JRadioButton rdbQuetion3C;
+	protected JRadioButton rdbQuetion3D;
+	protected JTextArea textAreaQuetion3;
+	protected JLabel label;
+	public JScrollPane scrollPaneQuetion4;
+	protected JRadioButton rdbQuetion4D;
+	protected JRadioButton rdbQuetion4A;
+	protected JRadioButton rdbQuetion4B;
+	protected JRadioButton rdbQuetion4C;
+	protected JTextArea textAreaQuetion4;
+	protected JLabel lblQuetion4;
+	protected JButton btnNextPage;
+	protected JLabel lblMin;
+	protected JLabel lblSec;
+	protected JButton btnStartTest;
 	Timer timer;
 	StartTestDialog startTestDialog;
-	private static int pageNumber;
 
-
-
-
-@Override
-public void bla() {
-	// TODO Auto-generated method stub
-	System.out.println("hhhh");
-}
-
-
-
-
-
-	public CQuizScreen() {
-
+	
+	
+	
+	
+	
+	public Quiz() {
+		
 		//panelImage & lblImage
 		ImageIcon image_icon=new ImageIcon(getClass().getResource("/view/images/lala.png"));
 		Image image=image_icon.getImage();
@@ -412,7 +385,7 @@ public void bla() {
 		btnNextPage.setBorder(new RoundBorder());
 		
 		//lbltimer
-		lblMin = new JLabel("10:");
+		lblMin = new JLabel("00 :");
 		lblMin.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblMin.setBounds(931, 32, 44, 36);
 		lblSec = new JLabel("00");
@@ -453,183 +426,81 @@ public void bla() {
 		contentPane.add(panelBar);
 		contentPane.add(panelQuizz);
 		contentPane.setBackground(c);
-		
-		lblClickLogOut.addMouseListener(new MouseListener() {
 			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				cQuizController.logOut();
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-			
-	
 		btnStartTest.addActionListener(new ActionListener() {
-			
-			
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				CQuizController.pageNumber=1;
-				cQuizController.startTestDialog();
-				
-
-			}
-
-			
-		});
-		
-	btnNextPage.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
-			cQuizController.goToNextOrPrevPage();
+			cQuizController.startTestDialog();			
 		}
-	});	
+	});
+		
 	}
 	
 
-
-	@Override
-	public CQuizController getcQuizController() {
+	
+	public void getTheValuesForQuetion() {
 		
-		return cQuizController;
+
+	
 	}
-
-
-
-
-
-
-
-
-
-
-	@Override
-	public void setcQuizController(CQuizController cQuizController) {
-		this.cQuizController = cQuizController;
+	
+	
+	
+	public void bla() {
+		System.out.println("fkfk");
 	}
-
-
-
-
-	@Override
-	public JLabel getLblHelloFirstAndLastName() {
-		return lblHelloFirstAndLastName;
-	}
-
-
-
-
-	@Override
-	public void setLblHelloFirstAndLastName(JLabel lblHelloFirstAndLastName) {
-		this.lblHelloFirstAndLastName = lblHelloFirstAndLastName;
-	}
-
-
-	@Override
-	public JLabel getLblMin() {
-		return lblMin;
-	}
-
-
-	@Override
-	public void setLblMin(JLabel lblMin) {
-		this.lblMin = lblMin;
-	}
-
-
-	@Override
-	public JLabel getLblSec() {
-		return lblSec;
-	}
-
-
-	@Override
-	public void setLblSec(JLabel lblSec) {
-		this.lblSec = lblSec;
-	}
-
-
-	@Override
+	
 	public void visibaleAll() {
-		panelQuetion1.setVisible(true);
-		panelQuetion2.setVisible(true);
-		panelQuetion3.setVisible(true);
-		panelQuetion4.setVisible(true);
-		btnStartTest.setVisible(false);
-		btnNextPage.setVisible(true);
-		panelQuetion1.revalidate();
 		
 	}
 	
-	
-
-	@Override
 	public JPanel getPanelBar() {
 		return panelBar;
 	}
 
 
-	@Override
+
 	public void setPanelBar(JPanel panelBar) {
 		this.panelBar = panelBar;
 	}
 
-
-
-
-
-	public int getPageNumber() {
-		return pageNumber;
-	}
-
-
-
-
-
-	public void setPageNumber(int pageNumber) {
-		this.pageNumber = pageNumber;
-	}
-	
-	
-	
-	
-//	Timer timer =new Timer(1000,new ActionListener() {
-//		
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			
-//			
-//		}
-//	});
-	
-	
-}
+	public void setLblSec(JLabel lblSec) {
+		// TODO Auto-generated method stub
 		
-	
+	}
+
+	public JLabel getLblSec() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public CQuizController getcQuizController() {
+		// TODO Auto-generated method stub
+		return cQuizController;
+	}
+
+	public void setcQuizController(CQuizController cQuizController) {
+		this.cQuizController=cQuizController;
+		
+	}
+
+	public JLabel getLblHelloFirstAndLastName() {
+		return lblHelloFirstAndLastName;
+	}
+
+	public void setLblHelloFirstAndLastName(JLabel lblHelloFirstAndLastName) {
+		this.lblHelloFirstAndLastName=lblHelloFirstAndLastName;
+		
+	}
+
+	public JLabel getLblMin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setLblMin(JLabel lblMin) {
+		// TODO Auto-generated method stub
+		
+	}
+}
