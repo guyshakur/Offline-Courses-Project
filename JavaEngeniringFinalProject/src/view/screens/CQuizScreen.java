@@ -21,6 +21,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -233,15 +234,15 @@ public void bla() {
 		scrollpaneQuetion1.setColumnHeaderView(lblQuetion1);
 		scrollpaneQuetion1.getColumnHeader().setBackground(c);
 		textAreaQuetion1.setCaretPosition(0);
-		rdbQuetion1A = new JRadioButton("A. malloc() for ppInt1 and ppInt2 isn’t correct. It’ll give compile time error.");
+		rdbQuetion1A = new JRadioButton("A. malloc() for ppInt1 and ppInt2 isnï¿½t correct. Itï¿½ll give compile time error.");
 		rdbQuetion1A.setBounds(0, 183, 444, 23);
 		rdbQuetion1A.setBackground(c);
 		panelQuetion1.add(rdbQuetion1A);
-		rdbQuetion1B = new JRadioButton("B. free(*ppInt2) is not correct. It’ll give compile time error.");
+		rdbQuetion1B = new JRadioButton("B. free(*ppInt2) is not correct. Itï¿½ll give compile time error.");
 		rdbQuetion1B.setBounds(0, 209, 559, 23);
 		rdbQuetion1B.setBackground(c);
 		panelQuetion1.add(rdbQuetion1B);
-		rdbQuetion1C = new JRadioButton("C. free(*ppInt2) is not correct. It’ll give run time error.");
+		rdbQuetion1C = new JRadioButton("C. free(*ppInt2) is not correct. Itï¿½ll give run time error.");
 		rdbQuetion1C.setBounds(0, 235, 559, 23);
 		rdbQuetion1C.setBackground(c);
 		panelQuetion1.add(rdbQuetion1C);
@@ -615,6 +616,15 @@ public void bla() {
 
 	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
+	}
+
+
+
+
+
+	public Component getPanelImage() {
+		// TODO Auto-generated method stub
+		return panelImage;
 	}
 	
 	

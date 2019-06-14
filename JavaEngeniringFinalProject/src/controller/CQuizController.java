@@ -156,6 +156,7 @@ public class CQuizController implements Controller {
 			cQuizScreen.setVisible(true);
 			cQuizPage2Screen.dispose();
 			cQuizScreen.getPanelBar().setEnabled(false);
+			cQuizScreen.getPanelImage().setEnabled(false);
 			cQuizScreen.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			
 			cQuizScreen.getLblMin().setText("0"+min+":");
