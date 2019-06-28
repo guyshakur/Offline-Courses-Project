@@ -31,8 +31,6 @@ public class StudentDaoImplForSqlite implements StudentDao {
 		} catch (Exception e) {
 			throw new Exception("Failed connecting to db. "+e.getMessage());
 		}
-
-
 	}
 
 	@Override

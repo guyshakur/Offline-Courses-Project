@@ -1,6 +1,7 @@
 package view.screens;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.MainScreenController;
 import model.dao.StudentDao;
+import net.proteanit.sql.DbUtils;
 import view.utilities.RoundedBorder;
 
 import javax.swing.JLabel;
@@ -28,6 +30,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Image;
+import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
+import java.awt.event.MouseAdapter;
+
+import java.sql.*;
+import java.awt.FlowLayout;
 
 public class MainScreen extends JFrame {
 	Color c=new Color(171,240,250);
@@ -52,7 +60,30 @@ public class MainScreen extends JFrame {
 	private JButton btnDataStructuresChoise;
 	private JButton btnSqlChoise;
 	public String selectedItem;
+	private JTable table;
+	
+	private String connectionString = null;
+	private Connection connection = null;
+	private PreparedStatement statment = null;
+	private JPanel panel;
 
+
+	public void setConnectionString(String str) {
+		connectionString = str;
+	}
+
+	public String getConnectionString() {
+		return connectionString;
+	}
+	
+	public void connect() throws Exception {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			connection = DriverManager.getConnection(connectionString);
+		} catch (Exception e) {
+			throw new Exception("Failed connecting to db. "+e.getMessage());
+		}
+	}
 
 
 	public MainScreen() {
@@ -136,191 +167,6 @@ public class MainScreen extends JFrame {
 		panelBar.add(separator_2);
 		panelBar.setBackground(c2);
 		
-		btnCChoise = new JButton("C");
-		btnCChoise.setBackground(Color.LIGHT_GRAY);
-		btnCChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnCChoise.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnCChoise.setBounds(288, 90, 213, 198);
-		
-		btnJavaChoise = new JButton("JAVA");
-		btnJavaChoise.setBackground(Color.LIGHT_GRAY);
-		btnJavaChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnJavaChoise.setBounds(798, 90, 213, 198);
-		
-		btnDataStructuresChoise = new JButton("DATA STRUCTURES");
-		btnDataStructuresChoise.setBackground(Color.LIGHT_GRAY);
-		btnDataStructuresChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnDataStructuresChoise.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnDataStructuresChoise.setBounds(288, 378, 213, 198);
-		
-		btnSqlChoise = new JButton("SQL");
-		btnSqlChoise.setBackground(c);
-		btnSqlChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnSqlChoise.setBounds(798, 378, 213, 198);
-		
-lblClickLogOut.addMouseListener(new MouseListener() {
-	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-		mainScreenController.logOut();
-	}
-	
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-});
-
-lblClickCourses.addMouseListener(new MouseListener() {
-	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-	lblClickCourses.setFont(new Font("Tahoma", Font.BOLD, 14));
-	lblClickQuizzes.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	lblClickGoals.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	
-	btnCChoise.setText("C");
-	btnJavaChoise.setText("JAVA");
-	btnDataStructuresChoise.setText("Data Structures");
-	btnSqlChoise.setText("SQL");
-	}
-	
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-});		
-
-lblClickQuizzes.addMouseListener(new MouseListener() {
-	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		lblClickCourses.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblClickQuizzes.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblClickGoals.setFont(new Font("Tahoma", Font.PLAIN, 14));		
-		
-		btnCChoise.setText("C Quiz");
-		btnJavaChoise.setText("JAVA Quiz");
-		btnDataStructuresChoise.setText("Data Structures Quiz");
-		btnSqlChoise.setText("SQL Structures Quiz");
-	}
-	
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-});
-
-lblClickGoals.addMouseListener(new MouseListener() {
-	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		lblClickCourses.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblClickQuizzes.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblClickGoals.setFont(new Font("Tahoma", Font.BOLD, 14));		
-		
-		
-		
-	}
-	
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-});
-
-
-btnCChoise.addActionListener(new ActionListener() {
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		selectedItem=btnCChoise.getText();	
-		mainScreenController.selectedSubject(selectedItem);
-	}
-});
 		//maincontent
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -332,17 +178,242 @@ btnCChoise.addActionListener(new ActionListener() {
 		contentPane.setLayout(null);
 		contentPane.add(panelBar);
 		contentPane.setBackground(c);
-		contentPane.add(btnCChoise);
-		contentPane.add(btnJavaChoise);
-		contentPane.add(btnSqlChoise);
-		contentPane.add(btnDataStructuresChoise);
+		
+		panel = new JPanel();
+		panel.setBackground(Color.CYAN);
+		panel.setBounds(181, 0, 1115, 854);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		btnCChoise = new JButton("C");
+		btnCChoise.setBounds(100, 103, 135, 218);
+		panel.add(btnCChoise);
+		btnCChoise.setBackground(Color.LIGHT_GRAY);
+		btnCChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		btnJavaChoise = new JButton("JAVA");
+		btnJavaChoise.setBounds(807, 258, 71, 27);
+		panel.add(btnJavaChoise);
+		btnJavaChoise.setBackground(Color.LIGHT_GRAY);
+		btnJavaChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		btnSqlChoise = new JButton("SQL");
+		btnSqlChoise.setBounds(330, 5, 63, 27);
+		panel.add(btnSqlChoise);
+		btnSqlChoise.setBackground(c);
+		btnSqlChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		btnDataStructuresChoise = new JButton("DATA STRUCTURES");
+		btnDataStructuresChoise.setBounds(398, 5, 183, 27);
+		panel.add(btnDataStructuresChoise);
+		btnDataStructuresChoise.setBackground(Color.LIGHT_GRAY);
+		btnDataStructuresChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		JPanel goals_panel = new JPanel();
+		goals_panel.setBounds(238, 174, 781, 417);
+		contentPane.add(goals_panel);
+		goals_panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		goals_panel.setLayout(null);
+		goals_panel.setVisible(false);
+		
+		table = new JTable();
+		table.setBounds(6, 15, 740, 140);
+		goals_panel.add(table);
+		
+		JButton btnA = new JButton("a");
+		btnA.setBounds(565, 192, 129, 40);
+		goals_panel.add(btnA);
+		
+		JButton btnB = new JButton("b");
+		btnB.setBounds(376, 196, 129, 33);
+		goals_panel.add(btnB);
+		
+		JButton btnC = new JButton("c");
+		btnC.setBounds(167, 194, 140, 36);
+		goals_panel.add(btnC);
+		btnA.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					String query = "select * from students";
+					PreparedStatement pst;
+					pst = connection.prepareStatement(query);
+					ResultSet rs = pst.executeQuery();
+					table.setModel(DbUtils.resultSetToTableModel(rs));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDataStructuresChoise.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCChoise.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 		
+		btnCChoise.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				selectedItem=btnCChoise.getText();	
+				mainScreenController.selectedSubject(selectedItem);
+			}
+		});
+		
+		lblClickLogOut.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+		
+				mainScreenController.logOut();
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	
+		lblClickCourses.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+		
+			lblClickCourses.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblClickQuizzes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblClickGoals.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			
+			btnCChoise.setText("C");
+			btnJavaChoise.setText("JAVA");
+			btnDataStructuresChoise.setText("Data Structures");
+			btnSqlChoise.setText("SQL");
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				goals_panel.setVisible(false);
+				panel.setVisible(true);
+			}
+		});		
+		
+		lblClickQuizzes.addMouseListener(new MouseListener() {
+		
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblClickCourses.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblClickQuizzes.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblClickGoals.setFont(new Font("Tahoma", Font.PLAIN, 14));		
+				
+				btnCChoise.setText("C Quiz");
+				btnJavaChoise.setText("JAVA Quiz");
+				btnDataStructuresChoise.setText("Data Structures Quiz");
+				btnSqlChoise.setText("SQL Structures Quiz");
+			}
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				goals_panel.setVisible(false);
+				panel.setVisible(true);
+			}
 
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 
-
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		lblClickGoals.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblClickCourses.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblClickQuizzes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblClickGoals.setFont(new Font("Tahoma", Font.BOLD, 14));		
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				goals_panel.setVisible(true);
+				panel.setVisible(false);
+			}
+		});
 	}
 	
 	
@@ -367,8 +438,5 @@ btnCChoise.addActionListener(new ActionListener() {
 	public void setLblHelloFirstAndLastName(JLabel lblHelloFirstAndLastName) {
 		this.lblHelloFirstAndLastName = lblHelloFirstAndLastName;
 	}
-	
-	
-
 }
 

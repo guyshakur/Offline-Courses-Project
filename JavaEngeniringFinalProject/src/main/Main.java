@@ -88,7 +88,10 @@ public class Main {
 
 			
 			
-			MainScreen mainScreen=new MainScreen();
+			MainScreen mainScreen = new MainScreen();
+			mainScreen.setConnectionString(dbPath);
+			mainScreen.connect();
+			
 			MainScreenController mainScreenController=new MainScreenController();
 			mainScreen.setMainScreenController(mainScreenController);
 			mainScreenController.setMainScreen(mainScreen);
