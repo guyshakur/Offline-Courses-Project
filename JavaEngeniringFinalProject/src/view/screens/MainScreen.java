@@ -36,6 +36,7 @@ import java.awt.event.MouseAdapter;
 
 import java.sql.*;
 import java.awt.FlowLayout;
+import javax.swing.JList;
 
 public class MainScreen extends JFrame {
 	Color c=new Color(171,240,250);
@@ -180,58 +181,103 @@ public class MainScreen extends JFrame {
 		contentPane.setBackground(c);
 		
 		panel = new JPanel();
-		panel.setBackground(Color.CYAN);
-		panel.setBounds(181, 0, 1115, 854);
+		panel.setBounds(0, 0, 1296, 854);
 		contentPane.add(panel);
+		panel.setBackground(new Color(175, 238, 238));
 		panel.setLayout(null);
 		
 		btnCChoise = new JButton("C");
-		btnCChoise.setBounds(100, 103, 135, 218);
+		btnCChoise.setBounds(288, 90, 213, 198);
 		panel.add(btnCChoise);
 		btnCChoise.setBackground(Color.LIGHT_GRAY);
 		btnCChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
 		btnJavaChoise = new JButton("JAVA");
-		btnJavaChoise.setBounds(807, 258, 71, 27);
+		btnJavaChoise.setBounds(798, 90, 213, 198);
 		panel.add(btnJavaChoise);
 		btnJavaChoise.setBackground(Color.LIGHT_GRAY);
 		btnJavaChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
 		btnSqlChoise = new JButton("SQL");
-		btnSqlChoise.setBounds(330, 5, 63, 27);
+		btnSqlChoise.setBounds(798, 378, 213, 198);
 		panel.add(btnSqlChoise);
-		btnSqlChoise.setBackground(c);
+		btnSqlChoise.setBackground(Color.LIGHT_GRAY);
 		btnSqlChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
 		btnDataStructuresChoise = new JButton("DATA STRUCTURES");
-		btnDataStructuresChoise.setBounds(398, 5, 183, 27);
+		btnDataStructuresChoise.setBounds(288, 378, 213, 198);
 		panel.add(btnDataStructuresChoise);
 		btnDataStructuresChoise.setBackground(Color.LIGHT_GRAY);
 		btnDataStructuresChoise.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
+		JSeparator separator_4 = new JSeparator();
+		separator_4.setBounds(662, 198, 1, 2);
+		panel.add(separator_4);
+		
 		JPanel goals_panel = new JPanel();
-		goals_panel.setBounds(238, 174, 781, 417);
+		goals_panel.setBounds(183, 0, 1113, 854);
 		contentPane.add(goals_panel);
-		goals_panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		goals_panel.setBackground(new Color(175, 238, 238));
 		goals_panel.setLayout(null);
 		goals_panel.setVisible(false);
 		
 		table = new JTable();
-		table.setBounds(6, 15, 740, 140);
+		table.setBackground(new Color(175, 238, 238));
+		table.setBounds(37, 276, 1053, 429);
 		goals_panel.add(table);
 		
-		JButton btnA = new JButton("a");
-		btnA.setBounds(565, 192, 129, 40);
+		JButton btnA = new JButton("RANKING TABLE");
+		btnA.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnA.setBackground(Color.LIGHT_GRAY);
+		btnA.setBounds(850, 24, 213, 198);
 		goals_panel.add(btnA);
 		
-		JButton btnB = new JButton("b");
-		btnB.setBounds(376, 196, 129, 33);
+		JButton btnB = new JButton("MY MEDALS");
+		btnB.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnB.setBackground(Color.LIGHT_GRAY);
+		btnB.setBounds(446, 24, 213, 198);
 		goals_panel.add(btnB);
 		
-		JButton btnC = new JButton("c");
-		btnC.setBounds(167, 194, 140, 36);
+		JButton btnC = new JButton("SOLVED QUIZZES");
+		btnC.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnC.setBackground(Color.LIGHT_GRAY);
+		btnC.setBounds(70, 24, 213, 198);
 		goals_panel.add(btnC);
+		
+		JList list = new JList();
+		list.setBounds(958, 150, 1, 1);
+		goals_panel.add(list);
 		btnA.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					String query = "select * from students";
+					PreparedStatement pst;
+					pst = connection.prepareStatement(query);
+					ResultSet rs = pst.executeQuery();
+					table.setModel(DbUtils.resultSetToTableModel(rs));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnB.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					String query = "select * from students";
+					PreparedStatement pst;
+					pst = connection.prepareStatement(query);
+					ResultSet rs = pst.executeQuery();
+					table.setModel(DbUtils.resultSetToTableModel(rs));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnC.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
